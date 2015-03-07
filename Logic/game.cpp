@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "GameLogic.h"
 
 int main()
 {
@@ -20,5 +21,6 @@ int main()
 		window.display();
 	}
 	*/
+
 	return 0;
 }

@@ -22,10 +22,11 @@ Enemy::Enemy(const Enemy &enemy)
 
 void Enemy::update(float deltaTime)
 {
-	double length = sqrt(playerPosition.getX()^2 + playerPosition.getY()^2);
-	int newPositionX = position.getX() / length * deltaTime * movementSpeed;
-	int newPositionY = position.getY() / length * deltaTime * movementSpeed;
+	double length = position.distance(playerPosition);
+	double newPositionX = (playerPosition.getX()- position.getX()) / length * deltaTime * movementSpeed;
+	double newPositionY = (playerPosition.getY() - position.getY()) / length * deltaTime * movementSpeed;
 	position.set(position.getX() + newPositionX, position.getY() + newPositionY);
+
 }
 
 void Enemy::setDifficulty()

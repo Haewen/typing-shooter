@@ -1,22 +1,24 @@
 #pragma once
 #include "Enemy.h"
-#include <list>
+#include <vector>
 class GameLogic
 {
 public:
 	GameLogic(Position resolution);
 	void newGame();
 	bool shoot(char c);
+	void nextWave();
 	void update(float deltaTime); //Called every frame
 	bool changeResolution(Position resolution){ this->resolution = resolution; };
 	int getScore(){ return score; };
 	bool isGameOver(){ return gameOver; };
 	Position getPlayerPosition(){ return playerPosition; };
-	std::list<Enemy> getEnemies(){ return enemies;};
-	void nextWave();
+	std::vector<Enemy> getEnemies(){ return enemies;};
+	int getWaveCount(){ return waveCount; };
+	bool isWaveOver(){ return waveOver; };
 
 protected:
-	std::list<Enemy> enemies;
+	std::vector<Enemy> enemies;
 	int score,waveCount,shotIndex,enemyCount;
 	bool gameOver;
 	bool waveOver;
