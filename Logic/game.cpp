@@ -40,10 +40,8 @@ int main()
 	player.setOrigin(sf::Vector2f(5, 5));
 	player.setFillColor(sf::Color::Green);
 	window.setFramerateLimit(60);
-	int a = 0;
 	while (window.isOpen())
 	{
-		a++;
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
