@@ -7,7 +7,9 @@ GameLogic::GameLogic(Position resolution)
 {
 	srand(time(NULL));
 	this->resolution = resolution;
+	PLAYER_VERTICAL_POSITION = resolution.getY() - 15;
 	playerPosition = Position((resolution.getX() / 2), PLAYER_VERTICAL_POSITION);
+	target = 0;
 }
 
 void GameLogic::newGame()
@@ -21,10 +23,12 @@ void GameLogic::newGame()
 void GameLogic::update(float deltaTime)
 {
 	if (remainingEnemyCount != 0)
-		for (std::vector<Enemy>::iterator iterator = enemies.begin(), end = enemies.end(); iterator != end; ++iterator)
-		{
-			iterator->update(deltaTime);
-			if (iterator->getPosition().distance(playerPosition) < 5) gameOver = true;
+	for (std::vector<Enemy>::iterator iterator = enemies.begin(), end = enemies.end(); iterator != end; ++iterator)
+	{
+		if (!iterator->isDead()){
+		iterator->update(deltaTime);
+		if (iterator->getPosition().distance(playerPosition) < 5) gameOver = true;
+		}
 		}
 	else waveOver = true;
 }
@@ -36,7 +40,7 @@ bool GameLogic::aim(char c)
 	{
 		//e.g: input:'c'  Enemy text: "clever"
 		if (iterator->getText()[0] == c)
-		{	
+		{
 			target = &(*iterator); 
 			shootAt(c);
 			return true;
@@ -62,7 +66,7 @@ bool GameLogic::shootAt(char c){
 	//Did we hit the target?
 	if (target->getText()[shotIndex] == c)
 	{	//Is it dead?
-		if (shotIndex == (int)(target->getText().length()))
+		if (shotIndex+1 == (int)(target->getText().length()))
 		{	
 			shotIndex = 0;
 			target->kill();
@@ -82,8 +86,8 @@ void GameLogic::createEnemies()
 	enemyCount = BASE_ENEMY_COUNT + (waveCount - 1)  * BONUS_ENEMY_PER_WAVE;
 	for (int i = 0; i < enemyCount; ++i)
 	{
-		std::string text = "Placeholder";
-		Position p(rand() % (resolution.getX()+1), rand() % (-SPAWN_RANGE));
+		std::string text = "text";
+		Position p(rand() % ((int)resolution.getX()+1),-1* rand() % (SPAWN_RANGE));
 		enemies.push_back(Enemy(text, p, playerPosition, 30));
 		remainingEnemyCount++;
 	}

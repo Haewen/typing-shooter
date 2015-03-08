@@ -13,9 +13,10 @@ public:
 	int getScore(){ return score; };
 	bool isGameOver(){ return gameOver; };
 	Position getPlayerPosition(){ return playerPosition; };
-	std::vector<Enemy> getEnemies(){ return enemies;};
+	std::vector<Enemy>& getEnemies(){ return enemies;};
 	int getWaveCount(){ return waveCount; };
 	bool isWaveOver(){ return waveOver; };
+	int getEnemyCount(){ return enemyCount; };
 
 protected:
 	std::vector<Enemy> enemies;
@@ -34,8 +35,8 @@ protected:
 	const int KILL_SCORE = 10; 
 	const int BASE_ENEMY_COUNT = 5; 
 	const int BONUS_ENEMY_PER_WAVE = 2; 
-	const int SPAWN_RANGE = 10; 
-	const int PLAYER_VERTICAL_POSITION = 10;
+	const int SPAWN_RANGE = 200; 
+	int PLAYER_VERTICAL_POSITION;
 
 };
 

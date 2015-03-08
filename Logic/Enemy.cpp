@@ -13,6 +13,7 @@ Enemy::Enemy(std::string text,Position &position,Position &playerPosition,int mo
 
 Enemy::Enemy(const Enemy &enemy)
 {
+	dead = enemy.dead;
 	text = enemy.text;
 	position = enemy.position;
 	movementSpeed = enemy.movementSpeed;
@@ -22,9 +23,9 @@ Enemy::Enemy(const Enemy &enemy)
 
 void Enemy::update(float deltaTime)
 {
-	double length = position.distance(playerPosition);
-	double newPositionX = (playerPosition.getX()- position.getX()) / length * deltaTime * movementSpeed;
-	double newPositionY = (playerPosition.getY() - position.getY()) / length * deltaTime * movementSpeed;
+	float length = position.distance(playerPosition);
+	float newPositionX = (playerPosition.getX()- position.getX()) / length * deltaTime * movementSpeed;
+	float newPositionY = (playerPosition.getY() - position.getY()) / length * deltaTime * movementSpeed;
 	position.set(position.getX() + newPositionX, position.getY() + newPositionY);
 
 }

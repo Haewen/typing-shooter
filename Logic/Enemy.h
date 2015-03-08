@@ -8,7 +8,7 @@ public:
 	Enemy(const Enemy &enemy);
 	void update(float deltaTime); //Called every frame
 	std::string getText(){ return text; }; 
-	void kill(){ dead; }; 
+	void kill(){ dead = true; }; 
 	int getDifficulty(){ return difficulty; };
 	bool isDead(){ return dead; };
 	Position getPosition(){ return position; };
