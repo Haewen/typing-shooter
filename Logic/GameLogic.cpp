@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include <iostream> // DEBUG
+
 GameLogic::GameLogic(Position resolution)
 {
 	srand(time(NULL));
@@ -10,6 +12,7 @@ GameLogic::GameLogic(Position resolution)
 	PLAYER_VERTICAL_POSITION = resolution.getY() - 15;
 	playerPosition = Position((resolution.getX() / 2), PLAYER_VERTICAL_POSITION);
 	target = 0;
+	vocabulary = Vocabulary("Words/en");
 }
 
 void GameLogic::newGame()
@@ -86,7 +89,8 @@ void GameLogic::createEnemies()
 	enemyCount = BASE_ENEMY_COUNT + (waveCount - 1)  * BONUS_ENEMY_PER_WAVE;
 	for (int i = 0; i < enemyCount; ++i)
 	{
-		std::string text = "text";
+		std::string text = vocabulary.getRandomWord();
+		std::cout << text << std::endl;
 		Position p(rand() % ((int)resolution.getX()+1),-1* rand() % (SPAWN_RANGE));
 		enemies.push_back(Enemy(text, p, playerPosition, 30));
 		remainingEnemyCount++;
