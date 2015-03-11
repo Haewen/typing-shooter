@@ -1,17 +1,18 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <fstream>
 
 class Vocabulary
 {
 public:
-	Vocabulary(){ };
+	Vocabulary() = default;
 	Vocabulary(const char* filename);
 	std::string getRandomWord();
 	//For testing
-	std::string Vocabulary::operator[](int n);
+	std::string operator[](int n);
 private:
-	std::vector<std::string> words;
-	int wordCount;
+    // fájl sorainak száma
+    const static int wordCount = 58110;
+    std::fstream file;
 };
-

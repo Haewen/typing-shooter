@@ -1,28 +1,37 @@
 #include "Vocabulary.h"
-#include <fstream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <limits>
+#include <iostream>
 
 Vocabulary::Vocabulary(const char* filename)
 {
 	srand(time(NULL));
-	std::ifstream file(filename);
-	std::string word;
-	int i = 0;
-	while (std::getline(file, word)){
-	words.push_back(word); ++i;
-	if(i%5000==0)printf("%d \n", i);
-	}
-	wordCount = words.size();
+    file.open(filename);
+}
+
+std::fstream& GotoLine(std::fstream& file, unsigned int num){
+    file.seekg(std::ios::beg);
+    for(int i=0; i < num - 1; ++i){
+        file.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+    }
+    return file;
 }
 
 std::string Vocabulary::getRandomWord()
 {
 	int random = rand() % wordCount;
-	return words[random];
+    GotoLine(file, random);
+    
+    std::string randomLine;
+    file >> randomLine;
+    std::cout << randomLine;
+	return randomLine;
 }
 
 std::string Vocabulary::operator[](int n){
-	return words[n];
+	//return words[n];
+    // TODO
+    return "";
 }
