@@ -15,4 +15,5 @@ private:
     // fájl sorainak száma
     const static int wordCount = 58110;
     std::fstream file;
+
 };

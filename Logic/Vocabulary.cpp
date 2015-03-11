@@ -26,7 +26,7 @@ std::string Vocabulary::getRandomWord()
     
     std::string randomLine;
     file >> randomLine;
-    std::cout << randomLine;
+    //std::cout << randomLine;
 	return randomLine;
 }
 

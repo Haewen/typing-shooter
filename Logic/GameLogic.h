@@ -28,7 +28,7 @@ protected:
 	Position resolution;
 	Position playerPosition;
 	Enemy* target; //If there is no target it scans enemies for a suitable one
-	Vocabulary vocabulary;
+	Vocabulary* vocabulary;
 
 	bool aim(char c); //Shoots at current target
 	bool shootAt(char c);
