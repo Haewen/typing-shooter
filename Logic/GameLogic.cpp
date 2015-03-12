@@ -42,7 +42,7 @@ bool GameLogic::aim(char c)
 	for (std::vector<Enemy>::iterator iterator = enemies.begin(), end = enemies.end(); iterator != end; ++iterator)
 	{
 		//e.g: input:'c'  Enemy text: "clever"
-		if (iterator->getText()[0] == c)
+		if (iterator->getText()[0] == c && !iterator->isDead())
 		{
 			target = &(*iterator); 
 			shootAt(c);
@@ -85,12 +85,12 @@ bool GameLogic::shootAt(char c){
 
 void GameLogic::createEnemies()
 {
-	enemies.empty();
+	enemies.clear();
 	enemyCount = BASE_ENEMY_COUNT + (waveCount - 1)  * BONUS_ENEMY_PER_WAVE;
 	for (int i = 0; i < enemyCount; ++i)
 	{
 		std::string text = vocabulary->getRandomWord();
-		std::cout << text << std::endl; 
+		std::cout << text << std::endl;
 		Position p(rand() % ((int)resolution.getX()+1),-1* rand() % (SPAWN_RANGE));
 		enemies.push_back(Enemy(text, p, playerPosition, 30));
 		remainingEnemyCount++;
@@ -99,6 +99,7 @@ void GameLogic::createEnemies()
 
 void GameLogic::nextWave()
 {
+	waveOver = false;
 	waveCount++;
 	createEnemies();
 }
