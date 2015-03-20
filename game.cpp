@@ -21,8 +21,8 @@ int main()
 	player.setOrigin(sf::Vector2f(5, 5));
 	player.setFillColor(sf::Color::Green);
 
-	window.setFramerateLimit(60);
-	window.setVerticalSyncEnabled(false);
+	//window.setFramerateLimit(60);
+	window.setVerticalSyncEnabled(true);
 	window.setKeyRepeatEnabled(false);
 
 	while (window.isOpen() && !l.isGameOver())

@@ -9,11 +9,13 @@ EnemyGUI::EnemyGUI(Enemy &enemy)
 	body.setPosition(sf::Vector2f(enemy.getPosition().getX(), enemy.getPosition().getY()));
 	
 	sf::Font* f = new sf::Font();
-	f->loadFromFile("../arial.ttf");
+	f->loadFromFile("arial.ttf");
 	text = new sf::Text(enemy.getText(),*f);
 	text->setColor(sf::Color::White);
 	text->setPosition(sf::Vector2f(body.getPosition().x + body.getSize().x, body.getPosition().y));
-	text->setCharacterSize(12);
+	text->setCharacterSize(13);
+	text->setStyle(sf::Text::Style::Bold);
+
 
 }
 
