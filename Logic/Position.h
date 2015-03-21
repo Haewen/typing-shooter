@@ -1,4 +1,10 @@
-#pragma once
+/**
+	Basic class to store a position
+	@author Benjamin Ferenc Hajas
+*/
+#ifndef POSITION_H
+#define POSITION_H
+
 #include <math.h>
 class Position
 {
@@ -11,7 +17,9 @@ public:
 	void setX(float x) { this->x = x; };
 	void setY(float y) { this->y = y; };
 	void set(float x, float y) { setX(x); setY(y); };
-	//double distance(Position position){ return sqrt((double)((x - position.x) ^ 2) + (double)((y - position.y) ^ 2));};
+	/**Distance of 2 positions
+		e.g. distance of (0,0) and (0,1) is 1.0f
+	*/
 	float distance(Position position)
 	{ 	float disX = (position.x - x);
 		float disY = (position.y - y);
@@ -21,3 +29,4 @@ protected:
 	float x, y;
 };
 
+#endif //POSITION_H

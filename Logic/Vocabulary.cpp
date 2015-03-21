@@ -1,3 +1,9 @@
+/**
+Provides an interface for the logic to get words from a file.
+@author Benjamin Ferenc Hajas
+@credits Dániel Eke
+*/
+
 #include "Vocabulary.h"
 #include <stdio.h>
 #include <stdlib.h>

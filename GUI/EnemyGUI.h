@@ -1,4 +1,11 @@
-#pragma once
+/**
+	Creates a body for an enemy
+	@author Benjamin Ferenc Hajas
+*/
+
+#ifndef ENEMYGUI_H
+#define ENEMYGUI_H
+
 #include <SFML/Graphics.hpp>
 #include "../Logic/Enemy.h"
 
@@ -13,3 +20,4 @@ protected:
 	sf::Text* text;
 };
 
+#endif //ENEMYGUI_H

@@ -1,17 +1,24 @@
+/**
+	Basic display with event loop.
+	Opens and manages a window and its contents.
+*/
+
 #include <SFML/Graphics.hpp>
 #include "Logic/GameLogic.h"
 #include "./GUI/EnemyGUI.h"
 #include <iostream>
 
-
 void getEnemies(std::vector<EnemyGUI> &enemies, GameLogic &l);
 int main()
-{
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Typing Shooter");
+{	//Creating window
+	sf::RenderWindow window(sf::VideoMode(800, 600), "Typing Shooter",sf::Style::Close);
+	//Timer to measure deltaTime for framerate independency
 	sf::Clock deltaClock;
+	//Creating gamelogic
 	GameLogic l = GameLogic(Position(800, 600));
-
+	//Starting new game
 	l.newGame();
+	//Enemy bodies
 	std::vector<EnemyGUI> enemies;
 	getEnemies(enemies, l);
 
@@ -25,6 +32,7 @@ int main()
 	window.setVerticalSyncEnabled(true);
 	window.setKeyRepeatEnabled(false);
 
+	//Event loop
 	while (window.isOpen() && !l.isGameOver())
 	{
 		sf::Event event;
@@ -32,10 +40,6 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-
-			/*if (event.type == sf::Event::Resized)
-				window.setView(sf::View(sf::FloatRect(0,0,window.getSize().x,window.getSize().y)));*/
-
 
 			if (event.type == sf::Event::TextEntered)
 			{
@@ -48,9 +52,12 @@ int main()
 
 		}
 
+		//Starts wave if previous one is defeated
 		if (l.isWaveOver()){ l.nextWave(); getEnemies(enemies, l); }
 
 		window.clear();
+
+		//Draws enemies still alive
 		for (int i = 0; i < enemies.size(); i++)
 		{
 			if (!l.getEnemies()[i].isDead()){
@@ -58,8 +65,10 @@ int main()
 				window.draw(enemies[i]);
 			}
 		}
+
 		window.draw(player);
 		window.display();
+
 		l.update(deltaClock.getElapsedTime().asSeconds());
 		deltaClock.restart();
 	}

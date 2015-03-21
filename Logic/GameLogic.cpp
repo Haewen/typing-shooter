@@ -1,3 +1,9 @@
+/**
+	Manages the whole game
+	You can create a new gamemode by creating a subclass to this one.
+	@author Benjamin Ferenc Hajas
+*/
+
 #include "GameLogic.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,6 +29,7 @@ void GameLogic::newGame()
 	nextWave();
 }
 
+//Updates all enemies
 void GameLogic::update(float deltaTime)
 {
 	if (remainingEnemyCount != 0)
@@ -36,7 +43,7 @@ void GameLogic::update(float deltaTime)
 	else waveOver = true;
 }
 
-
+//Looks for a target
 bool GameLogic::aim(char c)
 {
 	for (std::vector<Enemy>::iterator iterator = enemies.begin(), end = enemies.end(); iterator != end; ++iterator)
@@ -52,6 +59,7 @@ bool GameLogic::aim(char c)
 	return false;
 }
 
+//Tries to shoot something
 bool GameLogic::shoot(char c)
 {
 	//Do we have a target?
@@ -65,6 +73,7 @@ bool GameLogic::shoot(char c)
 	}
 }
 
+//Tries to shoot at a given enemy
 bool GameLogic::shootAt(char c){
 	//Did we hit the target?
 	if (target->getText()[shotIndex] == c)
@@ -73,7 +82,7 @@ bool GameLogic::shootAt(char c){
 		{	
 			shotIndex = 0;
 			target->kill();
-			score += target->getDifficulty() * KILL_SCORE;
+			score += KILL_SCORE;
 			target = 0;
 			remainingEnemyCount--;
 		}
@@ -83,6 +92,7 @@ bool GameLogic::shootAt(char c){
 	return false;
 }
 
+//Spawns enemies
 void GameLogic::createEnemies()
 {
 	enemies.clear();

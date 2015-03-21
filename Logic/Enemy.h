@@ -1,4 +1,11 @@
-#pragma once
+/**
+	Enemy's representation in logic.
+	@author Benjamin Ferenc Hajas
+*/
+
+#ifndef ENEMY_H
+#define ENEMY_H
+
 #include "Position.h"
 #include <string>
 class Enemy
@@ -6,19 +13,23 @@ class Enemy
 public:
 	Enemy(std::string text, Position &position, Position &playerPosition,int movementSpeed);
 	Enemy(const Enemy &enemy);
-	void update(float deltaTime); //Called every frame
-	std::string getText(){ return text; }; 
-	void kill(){ dead = true; }; 
-	int getDifficulty(){ return difficulty; };
+
+	/**
+		Calculates movement based on the deltaTime parameter.
+		Big deltaTimes can lead to inaccurate movement.
+	*/
+	void update(float deltaTime);
+	void kill(){ dead = true; };
 	bool isDead(){ return dead; };
+	std::string getText(){ return text; }; 
 	Position getPosition(){ return position; };
 
 protected:
 	Position position;
 	std::string text;
-	int movementSpeed,difficulty;
+	int movementSpeed;
 	Position playerPosition;
 	bool dead;
-	void setDifficulty();
 };
 
+#endif // ENEMY_H

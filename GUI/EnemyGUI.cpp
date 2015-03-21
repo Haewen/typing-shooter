@@ -1,5 +1,9 @@
-#include "EnemyGUI.h"
+/**
+	Creates a body for an enemy
+	@author Benjamin Ferenc Hajas
+*/
 
+#include "EnemyGUI.h"
 
 EnemyGUI::EnemyGUI(Enemy &enemy)
 {
@@ -15,8 +19,6 @@ EnemyGUI::EnemyGUI(Enemy &enemy)
 	text->setPosition(sf::Vector2f(body.getPosition().x + body.getSize().x, body.getPosition().y));
 	text->setCharacterSize(13);
 	text->setStyle(sf::Text::Style::Bold);
-
-
 }
 
 void EnemyGUI::draw(sf::RenderTarget& target, sf::RenderStates states) const

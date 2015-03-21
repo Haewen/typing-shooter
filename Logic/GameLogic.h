@@ -1,4 +1,12 @@
-#pragma once
+/**
+	Manages the whole game
+	You can create a new gamemode by creating a subclass to this one.
+	@author Benjamin Ferenc Hajas
+*/
+
+#ifndef GAMELOGIC_H
+#define GAMELOGIC_H
+
 #include "Enemy.h"
 #include "Vocabulary.h"
 #include <vector>
@@ -6,11 +14,27 @@ class GameLogic
 {
 public:
 	GameLogic(Position resolution);
+
+	/**
+		Starts a new game.
+		Automatically starts the first wawe!
+	*/
 	void newGame();
-	bool shoot(char c);
+
+	//Starts the next wave.
 	void nextWave();
-	void update(float deltaTime); //Called every frame
-	bool changeResolution(Position resolution){ this->resolution = resolution; };
+
+	//Updates every enemy
+	void update(float deltaTime); 
+
+	/**
+		Shoots target with a given character.
+		If there is no target it will search for a new one.
+
+		@return True if an enemy is hit.
+	*/
+	bool shoot(char c);
+
 	int getScore(){ return score; };
 	bool isGameOver(){ return gameOver; };
 	Position getPlayerPosition(){ return playerPosition; };
@@ -37,8 +61,9 @@ protected:
 	const int KILL_SCORE = 10; 
 	const int BASE_ENEMY_COUNT = 5; 
 	const int BONUS_ENEMY_PER_WAVE = 2; 
-	const int SPAWN_RANGE = 200; 
+	const int SPAWN_RANGE = 250; 
 	int PLAYER_VERTICAL_POSITION;
 
 };
 
+#endif //GAMELOGIC_H

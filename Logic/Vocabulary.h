@@ -1,4 +1,12 @@
-#pragma once
+/**
+	Provides an interface for the logic to get words from a file.
+	@author Benjamin Ferenc Hajas
+	@credits Dániel Eke
+*/
+
+#ifndef VOCABULARY_H
+#define VOCABULARY_H
+
 #include <string>
 #include <vector>
 #include <fstream>
@@ -17,3 +25,5 @@ private:
     std::fstream file;
 
 };
+
+#endif //VOCABULARY_H
