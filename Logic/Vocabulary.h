@@ -11,19 +11,23 @@
 #include <vector>
 #include <fstream>
 
+enum Difficulty
+{
+	Easy,Medium,Hard
+};
+
 class Vocabulary
 {
 public:
 	Vocabulary() = default;
-	Vocabulary(const char* filename);
-	std::string getRandomWord();
-	//For testing
-	std::string operator[](int n);
-private:
-    // fájl sorainak száma
-    const static int wordCount = 58110;
-    std::fstream file;
+	~Vocabulary();
+	Vocabulary(std::string filename);
+	std::string getRandomWord(Difficulty d=Easy);
 
+private:
+    std::ifstream easy,medium,hard;
+	int easyCount, mediumCount, hardCount;
+	std::string gotoLine(std::ifstream& file, int num);
 };
 
 #endif //VOCABULARY_H
