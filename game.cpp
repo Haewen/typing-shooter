@@ -11,11 +11,12 @@
 void getEnemies(std::vector<EnemyGUI> &enemies, GameLogic &l);
 int main()
 {	//Creating window
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Typing Shooter",sf::Style::Close);
+	sf::RenderWindow window(sf::VideoMode(800, 600), "Typing Shooter", sf::Style::Close);
+	Position resolution(window.getSize().x, window.getSize().y);
 	//Timer to measure deltaTime for framerate independency
 	sf::Clock deltaClock;
 	//Creating gamelogic
-	GameLogic l = GameLogic(Position(800, 600));
+	GameLogic l = GameLogic();
 	//Starting new game
 	l.newGame();
 	//Enemy bodies
@@ -24,7 +25,6 @@ int main()
 
 	sf::RectangleShape player;
 	player.setSize(sf::Vector2f(10, 10));
-	player.setPosition(sf::Vector2f(l.getPlayerPosition().getX(), l.getPlayerPosition().getY()));
 	player.setOrigin(sf::Vector2f(5, 5));
 	player.setFillColor(sf::Color::Green);
 
@@ -52,6 +52,8 @@ int main()
 
 		}
 
+		player.setPosition(sf::Vector2f(l.getPlayerPosition().getX()*resolution.getX() *0.01f, l.getPlayerPosition().getY()*resolution.getY() *0.01f));
+
 		//Starts wave if previous one is defeated
 		if (l.isWaveOver()){ l.nextWave(); getEnemies(enemies, l); }
 
@@ -61,7 +63,12 @@ int main()
 		for (int i = 0; i < enemies.size(); i++)
 		{
 			if (!l.getEnemies()[i].isDead()){
-				enemies[i].setPosition(sf::Vector2f(l.getEnemies()[i].getPosition().getX(), l.getEnemies()[i].getPosition().getY()));
+				enemies[i].setPosition(sf::Vector2f(l.getEnemies()[i].getPosition().getX()*resolution.getX() *0.01f,
+					l.getEnemies()[i].getPosition().getY()* resolution.getY() *0.01f));
+				if (&l.getEnemies()[i] == &l.getTarget())
+					{
+					enemies[i].setAsTarget();
+					}
 				window.draw(enemies[i]);
 			}
 		}

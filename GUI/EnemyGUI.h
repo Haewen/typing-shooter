@@ -15,9 +15,12 @@ public:
 	EnemyGUI(Enemy &enemy);
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	void setPosition(sf::Vector2f position);
+	void setAsTarget();
+	void updateText();
 protected:
 	sf::RectangleShape body;
 	sf::Text* text;
+	Enemy* enemy;
 };
 
 #endif //ENEMYGUI_H

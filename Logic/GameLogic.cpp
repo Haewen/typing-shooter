@@ -11,12 +11,10 @@
 
 #include <iostream> // DEBUG
 
-GameLogic::GameLogic(Position resolution)
+GameLogic::GameLogic()
 {
 	srand(time(NULL));
-	this->resolution = resolution;
-	PLAYER_VERTICAL_POSITION = resolution.getY() - 15;
-	playerPosition = Position((resolution.getX() / 2), PLAYER_VERTICAL_POSITION);
+	playerPosition = Position(PLAYER_HORIZONTAL_POSITION, PLAYER_VERTICAL_POSITION);
 	target = 0;
 	vocabulary = new Vocabulary("Words/en");
 }
@@ -37,7 +35,7 @@ void GameLogic::update(float deltaTime)
 	{
 		if (!iterator->isDead()){
 		iterator->update(deltaTime);
-		if (iterator->getPosition().distance(playerPosition) < 5) gameOver = true;
+		if (iterator->getPosition().distance(playerPosition) < 1) gameOver = true;
 		}
 		}
 	else waveOver = true;
@@ -49,7 +47,7 @@ bool GameLogic::aim(char c)
 	for (std::vector<Enemy>::iterator iterator = enemies.begin(), end = enemies.end(); iterator != end; ++iterator)
 	{
 		//e.g: input:'c'  Enemy text: "clever"
-		if (iterator->getText()[0] == c && !iterator->isDead())
+		if (iterator->getText()[0] == c && !iterator->isDead() && iterator->onScreen())
 		{
 			target = &(*iterator); 
 			shootAt(c);
@@ -101,8 +99,8 @@ void GameLogic::createEnemies()
 	{
 		std::string text = vocabulary->getRandomWord();
 		std::cout << text << std::endl;
-		Position p(rand() % ((int)resolution.getX()+1),-1* rand() % (SPAWN_RANGE));
-		enemies.push_back(Enemy(text, p, playerPosition, 30));
+		Position p(rand() % 100,-1* rand() % (SPAWN_RANGE));
+		enemies.push_back(Enemy(text, p, playerPosition, 10));
 		remainingEnemyCount++;
 	}
 }

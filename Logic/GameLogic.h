@@ -13,7 +13,7 @@
 class GameLogic
 {
 public:
-	GameLogic(Position resolution);
+	GameLogic();
 
 	/**
 		Starts a new game.
@@ -42,6 +42,7 @@ public:
 	int getWaveCount(){ return waveCount; };
 	bool isWaveOver(){ return waveOver; };
 	int getEnemyCount(){ return enemyCount; };
+	Enemy& getTarget(){ return *target; };
 
 protected:
 	std::vector<Enemy> enemies;
@@ -49,7 +50,6 @@ protected:
 	bool gameOver;
 	bool waveOver;
 	int remainingEnemyCount;
-	Position resolution;
 	Position playerPosition;
 	Enemy* target; //If there is no target it scans enemies for a suitable one
 	Vocabulary* vocabulary;
@@ -61,8 +61,9 @@ protected:
 	const int KILL_SCORE = 10; 
 	const int BASE_ENEMY_COUNT = 5; 
 	const int BONUS_ENEMY_PER_WAVE = 2; 
-	const int SPAWN_RANGE = 250; 
-	int PLAYER_VERTICAL_POSITION;
+	const int SPAWN_RANGE = 100; 
+	const int PLAYER_VERTICAL_POSITION = 95;
+	const int PLAYER_HORIZONTAL_POSITION = 50;
 
 };
 

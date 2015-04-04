@@ -7,6 +7,7 @@
 
 EnemyGUI::EnemyGUI(Enemy &enemy)
 {
+	this->enemy = &enemy;
 	body.setFillColor(sf::Color::Red);
 	body.setSize(sf::Vector2f(10, 10));
 	body.setOrigin(5, 5);
@@ -31,4 +32,14 @@ void EnemyGUI::setPosition(sf::Vector2f position)
 {
 	body.setPosition(position);
 	text->setPosition(sf::Vector2f(body.getPosition().x + body.getSize().x + 1, body.getPosition().y - body.getSize().y/2- text->getLocalBounds().top));
+}
+
+void EnemyGUI::setAsTarget()
+{
+	text->setColor(sf::Color::Red);
+}
+
+void EnemyGUI::updateText()
+{
+	text->setString(enemy->getText());
 }
