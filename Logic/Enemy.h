@@ -19,13 +19,12 @@ public:
 		Big deltaTimes can lead to inaccurate movement.
 	*/
 	void update(float deltaTime);
-	void kill(){ dead = true; };
 	bool isDead(){ return dead; };
 	std::string getText(){ return text; }; 
 	Position getPosition(){ return position; };
 	bool onScreen(){ return position.getY() >= 0; };
-	bool aim();
-	bool shoot();
+	bool canShoot(char c);
+	void hit();
 
 protected:
 	Position position;

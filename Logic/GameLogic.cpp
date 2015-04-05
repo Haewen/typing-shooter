@@ -47,10 +47,10 @@ bool GameLogic::aim(char c)
 	for (std::vector<Enemy>::iterator iterator = enemies.begin(), end = enemies.end(); iterator != end; ++iterator)
 	{
 		//e.g: input:'c'  Enemy text: "clever"
-		if (iterator->getText()[0] == c && !iterator->isDead() && iterator->onScreen())
+		if (iterator->canShoot(c))
 		{
 			target = &(*iterator); 
-			shootAt(c);
+			iterator->hit();
 			return true;
 		}
 	}
@@ -74,18 +74,16 @@ bool GameLogic::shoot(char c)
 //Tries to shoot at a given enemy
 bool GameLogic::shootAt(char c){
 	//Did we hit the target?
-	if (target->getText()[shotIndex] == c)
+	if (target->canShoot(c))
 	{	//Is it dead?
-		if (shotIndex+1 == (int)(target->getText().length()))
-		{	
-			shotIndex = 0;
-			target->kill();
-			score += KILL_SCORE;
-			target = 0;
-			remainingEnemyCount--;
-		}
-		shotIndex++;
-		return true;
+			target->hit();
+			if (target->isDead())
+			{
+				score += KILL_SCORE;
+				target = 0;
+				remainingEnemyCount--;
+			}
+			return true;
 	}
 	return false;
 }

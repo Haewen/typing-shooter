@@ -31,3 +31,15 @@ void Enemy::update(float deltaTime)
 	position.set(position.getX() + newPositionX, position.getY() + newPositionY);
 
 }
+
+bool Enemy::canShoot(char c)
+{
+	if (text[0] == c && !dead && onScreen()) return true;
+	return false;
+}
+
+void Enemy::hit()
+{
+	text.erase(0, 1);
+	if (text.length() == 0) dead = true;
+}

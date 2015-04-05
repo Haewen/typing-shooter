@@ -46,7 +46,7 @@ public:
 
 protected:
 	std::vector<Enemy> enemies;
-	int score,waveCount,shotIndex,enemyCount;
+	int score,waveCount,enemyCount;
 	bool gameOver;
 	bool waveOver;
 	int remainingEnemyCount;
@@ -61,7 +61,7 @@ protected:
 	const int KILL_SCORE = 10; 
 	const int BASE_ENEMY_COUNT = 5; 
 	const int BONUS_ENEMY_PER_WAVE = 2; 
-	const int SPAWN_RANGE = 100; 
+	const int SPAWN_RANGE = 105; 
 	const int PLAYER_VERTICAL_POSITION = 95;
 	const int PLAYER_HORIZONTAL_POSITION = 50;
 

@@ -68,6 +68,7 @@ int main()
 				if (&l.getEnemies()[i] == &l.getTarget())
 					{
 					enemies[i].setAsTarget();
+					enemies[i].updateText();
 					}
 				window.draw(enemies[i]);
 			}
