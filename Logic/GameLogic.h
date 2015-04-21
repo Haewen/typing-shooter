@@ -10,6 +10,7 @@
 #include "Enemy.h"
 #include "Vocabulary.h"
 #include <vector>
+#include "Missile.h"
 class GameLogic
 {
 public:
@@ -39,6 +40,7 @@ public:
 	bool isGameOver(){ return gameOver; };
 	Position getPlayerPosition(){ return playerPosition; };
 	std::vector<Enemy>& getEnemies(){ return enemies;};
+	std::vector <Missile>& getMissiles(){ return missiles; };
 	int getWaveCount(){ return waveCount; };
 	bool isWaveOver(){ return waveOver; };
 	int getEnemyCount(){ return enemyCount; };
@@ -46,6 +48,7 @@ public:
 
 protected:
 	std::vector<Enemy> enemies;
+	std::vector<Missile> missiles;
 	int score,waveCount,enemyCount;
 	bool gameOver;
 	bool waveOver;
@@ -61,9 +64,12 @@ protected:
 	const int KILL_SCORE = 10; 
 	const int BASE_ENEMY_COUNT = 5; 
 	const int BONUS_ENEMY_PER_WAVE = 2; 
-	const int SPAWN_RANGE = 105; 
+	const int SPAWN_RANGE = 15; 
 	const int PLAYER_VERTICAL_POSITION = 95;
 	const int PLAYER_HORIZONTAL_POSITION = 50;
+
+	float easyChance, mediumChance, hardChance;
+	float currentSpawnRange;
 
 };
 

@@ -1,11 +1,13 @@
 /**
 	Basic display with event loop.
 	Opens and manages a window and its contents.
+	@author Benjamin Ferenc Hajas
 */
 
 #include <SFML/Graphics.hpp>
 #include "Logic/GameLogic.h"
-#include "./GUI/EnemyGUI.h"
+#include "GUI/EnemyGUI.h"
+#include "GUI/MissileGUI.h"
 #include <iostream>
 
 void getEnemies(std::vector<EnemyGUI> &enemies, GameLogic &l);
@@ -22,11 +24,21 @@ int main()
 	//Enemy bodies
 	std::vector<EnemyGUI> enemies;
 	getEnemies(enemies, l);
+	std::vector<MissileGUI> missiles;
 
 	sf::RectangleShape player;
-	player.setSize(sf::Vector2f(10, 10));
-	player.setOrigin(sf::Vector2f(5, 5));
-	player.setFillColor(sf::Color::Green);
+	sf::Texture *playerTexture = new sf::Texture;
+	playerTexture->loadFromFile("Resources/player.png");
+	player.setTexture(playerTexture);
+	player.setSize(sf::Vector2f(50, 50));
+	player.setOrigin(sf::Vector2f(25, 25));
+
+	sf::Sprite *background = new sf::Sprite();
+	sf::Texture *backgroundTexture = new sf::Texture;
+	backgroundTexture->loadFromFile("Resources/stars.png");
+	backgroundTexture->setRepeated(true);
+	background->setTexture(*backgroundTexture);
+	background->setTextureRect(sf::IntRect(0, 0, resolution.getX(), resolution.getY()));
 
 	//window.setFramerateLimit(60);
 	window.setVerticalSyncEnabled(true);
@@ -46,7 +58,6 @@ int main()
 				if (event.text.unicode < 128){
 					char c = tolower((char)event.text.unicode);
 					l.shoot(c);
-					std::cout << c;
 				}
 			}
 
@@ -55,24 +66,42 @@ int main()
 		player.setPosition(sf::Vector2f(l.getPlayerPosition().getX()*resolution.getX() *0.01f, l.getPlayerPosition().getY()*resolution.getY() *0.01f));
 
 		//Starts wave if previous one is defeated
-		if (l.isWaveOver()){ l.nextWave(); getEnemies(enemies, l); }
+		if (l.isWaveOver()){ std::cout << l.getScore() << std::endl; l.nextWave(); getEnemies(enemies, l); }
 
 		window.clear();
+
+		window.draw(*background);
 
 		//Draws enemies still alive
 		for (int i = 0; i < enemies.size(); i++)
 		{
-			if (!l.getEnemies()[i].isDead()){
+			if (!l.getEnemies()[i].isExploded()){
 				enemies[i].setPosition(sf::Vector2f(l.getEnemies()[i].getPosition().getX()*resolution.getX() *0.01f,
 					l.getEnemies()[i].getPosition().getY()* resolution.getY() *0.01f));
 				if (&l.getEnemies()[i] == &l.getTarget())
 					{
 					enemies[i].setAsTarget();
-					enemies[i].updateText();
 					}
+				enemies[i].updateText();
 				window.draw(enemies[i]);
 			}
 		}
+
+		for (int i = missiles.size(); i < l.getMissiles().size(); i++)
+		{
+			missiles.push_back(MissileGUI(l.getMissiles()[i]));
+		}
+
+		for (int i = 0; i < l.getMissiles().size(); i++)
+		{
+			if (!l.getMissiles()[i].isDead())
+			{
+				missiles[i].setPosition(sf::Vector2f(l.getMissiles()[i].getPosition().getX()*resolution.getX()*0.01f,
+					l.getMissiles()[i].getPosition().getY()* resolution.getY() *0.01f));
+				window.draw(missiles[i]);
+			}
+		}
+
 
 		window.draw(player);
 		window.display();

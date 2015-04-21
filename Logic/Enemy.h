@@ -11,7 +11,7 @@
 class Enemy
 {
 public:
-	Enemy(std::string text, Position &position, Position &playerPosition,int movementSpeed);
+	Enemy(std::string text, Position &position, Position &playerPosition,float movementSpeed,float acceleration);
 	Enemy(const Enemy &enemy);
 
 	/**
@@ -20,18 +20,28 @@ public:
 	*/
 	void update(float deltaTime);
 	bool isDead(){ return dead; };
+	bool isExploded(){ return exploded; };
 	std::string getText(){ return text; }; 
 	Position getPosition(){ return position; };
 	bool onScreen(){ return position.getY() >= 0; };
+	//Returns true if this is a suitable target
 	bool canShoot(char c);
-	void hit();
+	//Updates enemy on hit
+	void hit(float force);
+	void shoot();
 
 protected:
 	Position position;
 	std::string text;
-	int movementSpeed;
+	//Maximum movement speed!
+	float movementSpeed;
+	float currentSpeed;
+	float acceleration;
 	Position playerPosition;
 	bool dead;
+	bool exploded;
+	short health;
+
 };
 
 #endif // ENEMY_H
