@@ -162,13 +162,13 @@ void GameLogic::createEnemies()
 	mediumChance += 100 / (easy_t - easyChance) * 0.7f;
 	hardChance = 100 - mediumChance - easyChance;
 
-	currentSpawnRange *= 0.85f;
+	currentSpawnRange *= 0.90f;
 
 }
 
 void GameLogic::nextWave()
 {
-
+	missiles.clear();
 	waveOver = false;
 	waveCount++;
 	createEnemies();
