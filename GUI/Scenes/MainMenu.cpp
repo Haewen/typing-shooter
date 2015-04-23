@@ -13,7 +13,7 @@ class MainMenu : public Scene
 		//Setting background
 		sf::Sprite *background = new sf::Sprite();
 		sf::Texture *backgroundTexture = new sf::Texture;
-		backgroundTexture->loadFromFile("Resources/stars.png");
+		backgroundTexture->loadFromFile("Resources/Backgrounds/stars.png");
 		backgroundTexture->setRepeated(true);
 		background->setTexture(*backgroundTexture);
 		background->setTextureRect(sf::IntRect(0, 0, resolution.getX(), resolution.getY()));
@@ -21,7 +21,7 @@ class MainMenu : public Scene
 		//Loading logo
 		sf::RectangleShape *logo = new sf::RectangleShape();
 		sf::Texture *logoTexture = new sf::Texture;
-		logoTexture->loadFromFile("Resources/logo.png");
+		logoTexture->loadFromFile("Resources/Menu/logo.png");
 		logoTexture->setSmooth(true);
 		logo->setTexture(logoTexture);
 		logo->setSize(sf::Vector2f(696/2, 260/2));
@@ -31,7 +31,7 @@ class MainMenu : public Scene
 		//Loading Menu Background
 		sf::RectangleShape menuBackground;
 		sf::Texture *menuTexture = new sf::Texture;
-		menuTexture->loadFromFile("Resources/menu_background.png");
+		menuTexture->loadFromFile("Resources/Backgrounds/menu_background.png");
 		menuBackground.setTexture(menuTexture);
 		menuBackground.setSize(sf::Vector2f(400, 300));
 		menuBackground.setOrigin(sf::Vector2f(menuBackground.getSize().x / 2, menuBackground.getSize().y / 2));
@@ -52,11 +52,11 @@ class MainMenu : public Scene
 		//Loading newGameButton
 		sf::RectangleShape *newGame = new sf::RectangleShape();
 		sf::Texture *newGameTexture = new sf::Texture;
-		newGameTexture->loadFromFile("Resources/newgame.png");
+		newGameTexture->loadFromFile("Resources/Menu/newgame.png");
 		newGameTexture->setSmooth(true);
 
 		sf::Texture *newGameTextureS = new sf::Texture;
-		newGameTextureS->loadFromFile("Resources/newgameselected.png");
+		newGameTextureS->loadFromFile("Resources/Menu/newgameselected.png");
 		newGameTextureS->setSmooth(true);
 
 

@@ -13,7 +13,7 @@ MissileGUI::MissileGUI(Missile &missile)
 	body.setOrigin(5, 5);
 	body.setPosition(sf::Vector2f(missile.getPosition().getX(), missile.getPosition().getY()));
 	sf::Texture* texture = new sf::Texture;
-	texture->loadFromFile("Resources/missile.png");
+	texture->loadFromFile("Resources/Sprites/missile.png");
 	body.setTexture(texture);
 
 }

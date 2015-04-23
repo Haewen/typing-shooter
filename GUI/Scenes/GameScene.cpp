@@ -9,6 +9,13 @@
 
 #ifndef GAMESCENE
 #define GAMESCENE
+
+enum GameState
+{
+	Running,Paused,NewWave,GameOver
+};
+
+
 class GameScene : public Scene
 {
 public:
@@ -19,7 +26,7 @@ public:
 		//Setting background
 		sf::Sprite *background = new sf::Sprite();
 		sf::Texture *backgroundTexture = new sf::Texture;
-		backgroundTexture->loadFromFile("Resources/stars.png");
+		backgroundTexture->loadFromFile("Resources/Backgrounds/stars.png");
 		backgroundTexture->setRepeated(true);
 		background->setTexture(*backgroundTexture);
 		background->setTextureRect(sf::IntRect(0, 0, resolution.getX(), resolution.getY()));
@@ -41,75 +48,117 @@ public:
 
 		sf::RectangleShape player;
 		sf::Texture *playerTexture = new sf::Texture;
-		playerTexture->loadFromFile("Resources/player.png");
+		playerTexture->loadFromFile("Resources/Sprites/player.png");
 		player.setTexture(playerTexture);
 		player.setSize(sf::Vector2f(50, 50));
 		player.setOrigin(sf::Vector2f(25, 25));
 
+		GameState currentState = GameState::Running;
 
 		//Event loop
-		while (window.isOpen() && !l.isGameOver())
+		while (window.isOpen())
 		{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-		if (event.type == sf::Event::Closed)
-		window.close();
+			sf::Event event;
+			window.clear();
+			switch (currentState)
+			{
+				case (GameState::Running):
 
-		if (event.type == sf::Event::TextEntered)
-		{
-		if (event.text.unicode < 128){
-		char c = tolower((char)event.text.unicode);
-		l.shoot(c);
-		}
-		}
+					while (window.pollEvent(event))
+					{
+						if (event.type == sf::Event::Closed)
+							window.close();
 
-		}
+						if (event.type == sf::Event::TextEntered)
+						{
+							if (event.text.unicode < 128)
+							{
+								char c = tolower((char)event.text.unicode);
+								l.shoot(c);
+							}
+						}
 
-		player.setPosition(sf::Vector2f(l.getPlayerPosition().getX()*resolution.getX() *0.01f, l.getPlayerPosition().getY()*resolution.getY() *0.01f));
+						if (event.type == sf::Event::KeyPressed)
+						{
+							if (event.key.code == sf::Keyboard::Escape)
+							{
+								currentState = GameState::Paused;
+							}
+						}
+					}
 
-		//Starts wave if previous one is defeated
-		if (l.isWaveOver()){ missiles.clear(); std::cout << l.getScore() << std::endl; l.nextWave(); getEnemies(enemies, l); }
+					player.setPosition(sf::Vector2f(l.getPlayerPosition().getX()*resolution.getX() *0.01f, l.getPlayerPosition().getY()*resolution.getY() *0.01f));
 
-		window.clear();
-		window.draw(*background);
+					//Starts wave if previous one is defeated
+					if (l.isWaveOver()){ missiles.clear(); std::cout << l.getScore() << std::endl; l.nextWave(); getEnemies(enemies, l); }
+					window.draw(*background);
 
-		//Draws enemies still alive
-		for (int i = 0; i < enemies.size(); i++)
-		{
-		if (!l.getEnemies()[i].isExploded()){
-		enemies[i].setPosition(sf::Vector2f(l.getEnemies()[i].getPosition().getX()*resolution.getX() *0.01f,
-		l.getEnemies()[i].getPosition().getY()* resolution.getY() *0.01f));
-		if (&l.getEnemies()[i] == &l.getTarget())
-		{
-		enemies[i].setAsTarget();
-		}
-		enemies[i].updateText();
-		window.draw(enemies[i]);
-		}
-		}
+					//Draws enemies still alive
+					for (int i = 0; i < enemies.size(); i++)
+					{
+						if (!l.getEnemies()[i].isExploded())
+						{
+							enemies[i].setPosition(sf::Vector2f(l.getEnemies()[i].getPosition().getX()*resolution.getX() *0.01f,
+								l.getEnemies()[i].getPosition().getY()* resolution.getY() *0.01f));
+							if (&l.getEnemies()[i] == &l.getTarget())
+							{
+								enemies[i].setAsTarget();
+							}
+							enemies[i].updateText();
+							window.draw(enemies[i]);
+						}
+					}
 
-		for (int i = missiles.size(); i < l.getMissiles().size(); i++)
-		{
-		missiles.push_back(MissileGUI(l.getMissiles()[i]));
-		}
+					for (int i = missiles.size(); i < l.getMissiles().size(); i++)
+					{
+						missiles.push_back(MissileGUI(l.getMissiles()[i]));
+					}
 
-		for (int i = 0; i < l.getMissiles().size(); i++)
-		{
-		if (!l.getMissiles()[i].isDead())
-		{
-		missiles[i].setPosition(sf::Vector2f(l.getMissiles()[i].getPosition().getX()*resolution.getX()*0.01f,
-		l.getMissiles()[i].getPosition().getY()* resolution.getY() *0.01f));
-		window.draw(missiles[i]);
-		}
-		}
+					for (int i = 0; i < l.getMissiles().size(); i++)
+					{
+						if (!l.getMissiles()[i].isDead())
+						{
+							missiles[i].setPosition(sf::Vector2f(l.getMissiles()[i].getPosition().getX()*resolution.getX()*0.01f,
+								l.getMissiles()[i].getPosition().getY()* resolution.getY() *0.01f));
+							window.draw(missiles[i]);
+						}
+					}
 
 
-		window.draw(player);
-		window.display();
+					window.draw(player);
 
-		l.update(deltaClock.getElapsedTime().asSeconds());
-		deltaClock.restart();
+					l.update(deltaClock.getElapsedTime().asSeconds());
+					deltaClock.restart();
+
+					if (l.isGameOver())
+					{
+						return 0;
+					}
+
+					break;
+
+				case (GameState::NewWave) :
+					break;
+				case (GameState::GameOver) :
+					break;
+				case (GameState::Paused) :
+					while (window.pollEvent(event))
+					{
+						if (event.type == sf::Event::Closed)
+							window.close();
+
+						if (event.type == sf::Event::KeyPressed)
+						{
+							if (event.key.code == sf::Keyboard::Escape)
+							{
+								currentState = GameState::Running;
+								deltaClock.restart();
+							}
+						}
+					}
+					break;
+				}
+				window.display();
 		}
 
 		return -1;
