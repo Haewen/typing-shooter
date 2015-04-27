@@ -3,6 +3,7 @@
 #include "../../GUI/EnemyGUI.h"
 #include "../../GUI/MissileGUI.h"
 #include "../../GUI/Scenes/Scene.cpp"
+#include "../../GUI/Scenes/PauseScene.cpp"
 
 #include <iostream>
 
@@ -54,12 +55,12 @@ public:
 		player.setOrigin(sf::Vector2f(25, 25));
 
 		GameState currentState = GameState::Running;
+        PauseScene pauseScene;
 
 		//Event loop
 		while (window.isOpen())
 		{
 			sf::Event event;
-			window.clear();
 			switch (currentState)
 			{
 				case (GameState::Running):
@@ -82,11 +83,23 @@ public:
 						{
 							if (event.key.code == sf::Keyboard::Escape)
 							{
-								currentState = GameState::Paused;
-							}
+                                sf::Image screenshot = window.capture();
+                                screenshot.saveToFile("screenshot_temp.png");
+                                currentState = GameState::Paused;
+                                
+                                int pauseSelection = static_cast<Scene*>(&pauseScene)->run(window);
+                                if(pauseSelection == -1){
+                                    currentState = GameState::Running;
+                                    deltaClock.restart();
+                                }else{
+                                    return pauseSelection;
+                                }
+                                
+                            }
 						}
 					}
 
+                    window.clear();
 					player.setPosition(sf::Vector2f(l.getPlayerPosition().getX()*resolution.getX() *0.01f, l.getPlayerPosition().getY()*resolution.getY() *0.01f));
 
 					//Starts wave if previous one is defeated
@@ -142,20 +155,6 @@ public:
 				case (GameState::GameOver) :
 					break;
 				case (GameState::Paused) :
-					while (window.pollEvent(event))
-					{
-						if (event.type == sf::Event::Closed)
-							window.close();
-
-						if (event.type == sf::Event::KeyPressed)
-						{
-							if (event.key.code == sf::Keyboard::Escape)
-							{
-								currentState = GameState::Running;
-								deltaClock.restart();
-							}
-						}
-					}
 					break;
 				}
 				window.display();

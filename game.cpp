@@ -10,11 +10,12 @@
 #include "GUI/MissileGUI.h"
 #include "GUI/Scenes/Scene.cpp"
 #include "GUI/Scenes/MainMenu.cpp"
+#include "GUI/Scenes/ScoreScene.cpp"
 #include "GUI/Scenes/GameScene.cpp"
+#include "GUI/Scenes/OptionsScene.cpp"
 
 #include <iostream>
 
-void getEnemies(std::vector<EnemyGUI> &enemies, GameLogic &l);
 int main()
 {	
 	//Applications variables
@@ -22,8 +23,12 @@ int main()
 	int currentScene = 0;
 	MainMenu mainMenu;
 	scenes.push_back(&mainMenu);
-	GameScene gameScene;
-	scenes.push_back(&gameScene);
+    GameScene gameScene;
+    scenes.push_back(&gameScene);
+    ScoreScene scoreScene;
+    scenes.push_back(&scoreScene);
+    OptionsScene optionsScene;
+    scenes.push_back(&optionsScene);
 	
 
 	//Creating window

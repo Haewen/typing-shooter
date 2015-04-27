@@ -15,6 +15,7 @@ class GameLogic
 {
 public:
 	GameLogic();
+    GameLogic( const GameLogic &obj);
 
 	/**
 		Starts a new game.

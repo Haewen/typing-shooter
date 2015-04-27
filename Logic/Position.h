@@ -11,7 +11,8 @@ class Position
 public:
 	Position(){};
 	Position(int x, int y){ this->x=x; this->y = y; };
-	Position(Position &position){ x= position.x; y = position.y; };
+	Position(const Position &position){ x= position.x; y = position.y; };
+    
 	float getX(){ return x; };
 	float getY(){ return y; };
 	void setX(float x) { this->x = x; };
