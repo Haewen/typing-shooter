@@ -29,6 +29,7 @@ void GameLogic::newGame()
 	easyChance = 97;
 	mediumChance = 2;
 	hardChance = 1;
+    remainingEnemyCount = 0;
 	currentSpawnRange = SPAWN_RANGE;
 }
 

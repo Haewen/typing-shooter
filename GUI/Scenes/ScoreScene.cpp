@@ -1,7 +1,10 @@
 #include "Scene.cpp"
 #include "../../Logic/Position.h"
+#include "../../Logic/ScoreLoader.h"
 #include <vector>
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 
 #ifndef SCORE_SCENE
 #define SCORE_SCENE
@@ -10,6 +13,7 @@ class ScoreScene : public Scene
     int run(sf::RenderWindow &window)
     {
         Position resolution(window.getSize().x, window.getSize().y);
+        ScoreLoader scoreLoader;
         
         //Setting background
         sf::Sprite *background = new sf::Sprite();
@@ -44,19 +48,39 @@ class ScoreScene : public Scene
         sf::Font* f = new sf::Font();
         f->loadFromFile("Resources/Fonts/Ubuntu-Regular.ttf");
         
-        for(int i = 0; i < 10; i++){
-            int placeholder = 10000 - i*50;
-            std::string stuff = "" + std::to_string(i+1) + ".\t\t" + std::to_string(placeholder) + "\t\t Player name";
-            sf::Text* text = new sf::Text(stuff,*f);
+        std::vector<Score> scoreData = scoreLoader.getTopScore();
+        for(int i = 0; i < scoreData.size(); i++){
+            std::stringstream indStream;
+            std::stringstream valStream;
+            std::stringstream nameStream;
+            indStream << std::setfill('0') << std::setw(2) << i+1;
+            valStream << std::setfill('0') << std::setw(6) << scoreData[i].value;
+            // TODO: lehetne szebben is
+            if(scoreData[i].name.size() > 10){
+                scoreData[i].name.resize(13);
+                scoreData[i].name[10] = '.';
+                scoreData[i].name[11] = '.';
+                scoreData[i].name[12] = '.';
+            }
+            
+            std::string scoreRow = "" + indStream.str() + ".\t\t" + valStream.str() + "\t\t " + scoreData[i].name;
+            sf::Text* text = new sf::Text(scoreRow,*f);
             text->setCharacterSize(23);
             text->setStyle(sf::Text::Style::Bold);
+            text->setColor(sf::Color::White);
+            text->setPosition(sf::Vector2f((resolution.getX() / 2 - backgroundSize.x / 2) + 10, (resolution.getY() / 7*4.5 - backgroundSize.y / 2) + 10 + i * 20));
             
+            scores.push_back(text);
+        }
+        
+        if(scores.size() == 0){
+            sf::Text* text = new sf::Text("No scores yet",*f);
+            text->setCharacterSize(23);
+            text->setStyle(sf::Text::Style::Bold);
             sf::FloatRect textRect = text->getLocalBounds();
             text->setOrigin(textRect.left + textRect.width/2.0f, textRect.top  + textRect.height/2.0f);
             text->setColor(sf::Color::White);
-            text->setPosition(sf::Vector2f(resolution.getX() / 2, resolution.getY() / 2 - 20 + i * 20));
-            text->setScale(1.0-0.05*i, 1.0-0.05*i);
-            
+            text->setPosition(sf::Vector2f(resolution.getX() / 2, resolution.getY() / 2 - 20));
             scores.push_back(text);
         }
         
@@ -73,7 +97,7 @@ class ScoreScene : public Scene
         backButton->setTexture(backTexture);
         backButton->setSize(sf::Vector2f(500 / 2, 100 / 2));
         backButton->setOrigin(sf::Vector2f(backButton->getSize().x / 2, backButton->getSize().y / 2));
-        backButton->setPosition(sf::Vector2f(resolution.getX() / 2, scores.back()->getPosition().y + 40));
+        backButton->setPosition(sf::Vector2f(resolution.getX() / 2, scores.back()->getPosition().y + 50));
         
         
         while (window.isOpen())
