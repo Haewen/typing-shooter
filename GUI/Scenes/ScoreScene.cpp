@@ -112,7 +112,7 @@ class ScoreScene : public Scene
                 if (backButton->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
                     backButton->setTexture(backTextureS);
-                    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                    if(event.type == sf::Event::MouseButtonReleased)
                     {
                         return 0;
                     }

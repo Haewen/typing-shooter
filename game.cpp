@@ -12,7 +12,6 @@
 #include "GUI/Scenes/MainMenu.cpp"
 #include "GUI/Scenes/ScoreScene.cpp"
 #include "GUI/Scenes/GameScene.cpp"
-#include "GUI/Scenes/OptionsScene.cpp"
 
 #include <iostream>
 
@@ -27,9 +26,6 @@ int main()
     scenes.push_back(&gameScene);
     ScoreScene scoreScene;
     scenes.push_back(&scoreScene);
-    OptionsScene optionsScene;
-    scenes.push_back(&optionsScene);
-	
 
 	//Creating window
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Typing Shooter", sf::Style::Close);

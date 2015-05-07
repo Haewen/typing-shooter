@@ -38,7 +38,7 @@ public:
         redOverlay->setSize(sf::Vector2f(resolution.getX(), resolution.getY()));
         redOverlay->setFillColor(sf::Color(0,0,0,0));
         redOverlay->setPosition(0, 0);
-
+        
         
         //window.setFramerateLimit(60);
         //window.setVerticalSyncEnabled(true);
@@ -46,6 +46,7 @@ public:
         
         //Timer to measure deltaTime for framerate independency
         sf::Clock deltaClock;
+        float deltaTime = 0;
         //Creating gamelogic
         GameLogic l = GameLogic();
         //Starting new game
@@ -67,18 +68,25 @@ public:
         
         GameState currentState = GameState::Running;
         
-        // Wave score text
+        // Wave and score display
         int currentWave = 0;
-        int waveScoreAlpha = 0;
+        float waveAlpha = 0;
         sf::Font* f = new sf::Font();
         f->loadFromFile("Resources/Fonts/Ubuntu-Regular.ttf");
-        sf::Text* waveScoreText = new sf::Text("Wave 234.\nScore 212312313",*f);
-        sf::FloatRect textRect = waveScoreText->getLocalBounds();
-        //waveScoreText->setOrigin(textRect.left + textRect.width/2.0f, textRect.top  + textRect.height/2.0f);
-        waveScoreText->setPosition(sf::Vector2f(10, resolution.getY()-textRect.height-10));
-        waveScoreText->setColor(sf::Color(255,255,255,waveScoreAlpha));
-        waveScoreText->setCharacterSize(25);
-        waveScoreText->setStyle(sf::Text::Style::Bold);
+        
+        sf::Text* scoreText = new sf::Text("Score 212312313",*f);
+        scoreText->setPosition(sf::Vector2f(10, resolution.getY()-scoreText->getLocalBounds().height-10));
+        scoreText->setColor(sf::Color::White);
+        scoreText->setCharacterSize(25);
+        scoreText->setStyle(sf::Text::Style::Bold);
+        
+        sf::Text* waveText = new sf::Text("Wave 9999",*f);
+        sf::FloatRect waveRect = waveText->getLocalBounds();
+        waveText->setOrigin(waveRect.left + waveRect.width/2.0f, waveRect.top  + waveRect.height/2.0f);
+        waveText->setPosition(sf::Vector2f(resolution.getX()/2, resolution.getY()/2));
+        waveText->setColor(sf::Color(255,255,255,waveAlpha));
+        waveText->setCharacterSize(30);
+        waveText->setStyle(sf::Text::Style::Bold);
         
         //Event loop
         while (window.isOpen())
@@ -88,7 +96,7 @@ public:
             {
                 case (GameState::Running):
                 case (GameState::NewWave):
-                    
+                    deltaTime = deltaClock.getElapsedTime().asSeconds();
                     while (window.pollEvent(event))
                     {
                         if (event.type == sf::Event::Closed)
@@ -139,6 +147,7 @@ public:
                         if (!l.getEnemies()[i].isExploded())
                         {
                             if(closestEnemy == NULL){
+                                // The closest is always the first not exploded enemy
                                 closestEnemy = &l.getEnemies()[i];
                             }
                             
@@ -168,6 +177,8 @@ public:
                         }
                     }
                     
+                    // Proxitimy indicator, based on the closest enemy
+                    // If its within 50% distance, fade in the red overlay
                     if(closestEnemy != NULL){
                         float distance = fmax(((50-closestEnemy->getPosition().distance(l.getPlayerPosition())) * 2) / 100,0);
                         redOverlay->setFillColor(sf::Color(255,0,0,75*distance));
@@ -175,7 +186,10 @@ public:
                     
                     window.draw(player);
                     
-                    l.update(deltaClock.getElapsedTime().asSeconds());
+                    scoreText->setString("Score " + std::to_string(l.getScore()));
+                    window.draw(*scoreText);
+                    
+                    l.update(deltaTime);
                     deltaClock.restart();
                     
                     if (l.isGameOver())
@@ -184,21 +198,30 @@ public:
                         currentState = GameState::GameOver;
                     }
                     
+
+                    // If the last wave ended, increment the current wave and fade in the indicator
                     if(currentState == GameState::NewWave){
-                        if(waveScoreAlpha == 0){
+                        if(waveAlpha <= 0){
                             currentWave++;
-                            waveScoreText->setString("Wave " + std::to_string(currentWave) + ".\n" + "Score " + std::to_string(l.getScore()));
-                            missiles.clear(); std::cout << l.getScore() << std::endl; l.nextWave(); getEnemies(enemies, l);
-                            deltaClock.restart();
+                            waveText->setString("Wave " + std::to_string(currentWave));
+                            missiles.clear(); l.nextWave(); getEnemies(enemies, l);
+                            //deltaClock.restart();
+                            waveAlpha = 0.1;
                         }
                         
-                        if(waveScoreAlpha < 255){
-                            waveScoreAlpha += 5;
-                            waveScoreText->setColor(sf::Color(255,255,255,waveScoreAlpha));
-                            window.draw(*waveScoreText);
-                        }else{
-                            waveScoreAlpha = 0;
+                        waveAlpha += deltaTime * 200.0;
+                        waveText->setColor(sf::Color(255,255,255,waveAlpha));
+                        window.draw(*waveText);
+
+                        if(waveAlpha >= 255){
                             currentState = GameState::Running;
+                        }
+                    } else {
+                        // If the indicator is visible, fade it out
+                        if(waveAlpha >= 0){
+                            waveAlpha -= deltaTime * 200.0;
+                            waveText->setColor(sf::Color(255,255,255,fmax(0,waveAlpha)));
+                            window.draw(*waveText);
                         }
                     }
                     

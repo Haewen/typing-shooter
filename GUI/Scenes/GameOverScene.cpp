@@ -109,7 +109,7 @@ private:
                 if (mainMenuButton->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
                     mainMenuButton->setTexture(mainMenuTextureS);
-                    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                    if(event.type == sf::Event::MouseButtonReleased)
                     {
                         if(playerName.empty()){
                             playerName = "player";
@@ -129,7 +129,6 @@ private:
                     }
                     if(event.text.unicode == 8 && playerName.size() > 1)
                     {
-                        std::cout << playerName;
                         playerName.resize(playerName.size()-2);
                         playerNameText->setString(playerName);
                     }

@@ -97,7 +97,7 @@ class PauseScene : public Scene
                 if (resumeButton->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
                     resumeButton->setTexture(resumeTextureS);
-                    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                    if(event.type == sf::Event::MouseButtonReleased)
                     {
                         return -1;
                     }
@@ -107,7 +107,7 @@ class PauseScene : public Scene
                 if (mainMenuButton->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
                     mainMenuButton->setTexture(mainMenuTextureS);
-                    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                    if(event.type == sf::Event::MouseButtonReleased)
                     {
                         return 0;
                     }
