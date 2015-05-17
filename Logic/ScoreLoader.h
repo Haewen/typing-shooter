@@ -1,3 +1,9 @@
+/**
+	Provides an interface for the logic to load high scores from a file.
+	@author Dániel Eke
+    @credits Benjamin Ferenc Hajas
+ */
+
 #ifndef SCORE_LOADER_H
 #define SCORE_LOADER_H
 

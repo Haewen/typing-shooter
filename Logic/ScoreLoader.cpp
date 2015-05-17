@@ -1,3 +1,9 @@
+/**
+	Provides an interface for the logic to load high scores from a file.
+	@author Dániel Eke
+    @credits Benjamin Ferenc Hajas
+*/
+
 #include "ScoreLoader.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,7 +21,7 @@ struct score_coparator
 
 ScoreLoader::ScoreLoader()
 {
-    std::fstream file(scoreFileName, std::fstream::in);
+    std::fstream file(scoreFileName.c_str(), std::fstream::in);
     std::string name;
     int value;
     while (file >> name >> value){
@@ -31,7 +37,7 @@ std::vector<Score> ScoreLoader::getTopScore(){
 }
 
 void ScoreLoader::saveScore(std::string name, int score){
-    std::fstream file(scoreFileName, std::fstream::app);
+    std::fstream file(scoreFileName.c_str(), std::fstream::app);
     file << name << " " << score << std::endl;
     file.close();
 }

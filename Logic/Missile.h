@@ -7,17 +7,20 @@ Missile shot by player on succesful input
 #define MISSILE_H
 
 #include "Enemy.h"
+
+const int MOVEMENT_SPEED = 80;
+
 class Missile
 {
 public:
 	Missile(Position playerPosition, Enemy *target,float force = 4);
+    
 	void update(float deltaTime);
 	bool isDead(){ return dead; };
 	Position getPosition() { return position; };
 	
 protected:
 	Enemy *target;
-	const int MOVEMENT_SPEED = 80;
 	Position position;
 	bool dead;
 	float force;
