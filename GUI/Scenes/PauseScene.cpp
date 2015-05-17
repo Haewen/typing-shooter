@@ -96,6 +96,7 @@ class PauseScene : public Scene
                 sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
                 if (resumeButton->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
+					hoverSound();
                     resumeButton->setTexture(resumeTextureS);
                     if(event.type == sf::Event::MouseButtonReleased)
                     {
@@ -106,6 +107,7 @@ class PauseScene : public Scene
                 
                 if (mainMenuButton->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
+					hoverSound();
                     mainMenuButton->setTexture(mainMenuTextureS);
                     if(event.type == sf::Event::MouseButtonReleased)
                     {
