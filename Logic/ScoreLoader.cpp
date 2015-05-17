@@ -21,9 +21,20 @@ struct score_coparator
 
 ScoreLoader::ScoreLoader()
 {
+    loadScores();
+}
+
+ScoreLoader::ScoreLoader(std::string filename)
+{
+    scoreFileName = filename;
+    loadScores();
+}
+
+void ScoreLoader::loadScores(){
     std::fstream file(scoreFileName.c_str(), std::fstream::in);
     std::string name;
     int value;
+    
     while (file >> name >> value){
         Score score = Score{name,value};
         scores.push_back(score);
@@ -37,7 +48,7 @@ std::vector<Score> ScoreLoader::getTopScore(){
 }
 
 void ScoreLoader::saveScore(std::string name, int score){
-    std::fstream file(scoreFileName.c_str(), std::fstream::app);
+    std::fstream file(scoreFileName.c_str(), std::fstream::app|std::fstream::out);
     file << name << " " << score << std::endl;
     file.close();
 }

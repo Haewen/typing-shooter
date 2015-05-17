@@ -21,11 +21,14 @@ class ScoreLoader
 {
 public:
     ScoreLoader();
+    ScoreLoader(std::string filename);
+
     std::vector<Score> getTopScore();
     void saveScore(std::string name, int score);
 private:
     std::string scoreFileName = "defaultScores.txt";
     std::vector<Score> scores;
+    void loadScores();
 };
 
 #endif //SCORE_LOADER_H

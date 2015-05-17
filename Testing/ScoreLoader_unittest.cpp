@@ -2,11 +2,12 @@
 #include "ScoreLoader.h"
 
 TEST(ScoreLoader, scoreSaving){
-    ScoreLoader scoreLoader;
-    // TODO: ideiglenes fajlal tesztelni
+    ScoreLoader scoreLoader = ScoreLoader("tempScores.txt");
+    scoreLoader.saveScore("TestPlayer", 100);
 }
 
 TEST(ScoreLoader, getTopScores) {
-    ScoreLoader scoreLoader;
-    // TODO: itt is
+    ScoreLoader scoreLoader = ScoreLoader("tempScores.txt");
+    std::vector<Score> scoreData = scoreLoader.getTopScore();
+    EXPECT_GT(scoreData.size(), 0);
 }

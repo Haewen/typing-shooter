@@ -4,7 +4,7 @@
 
 TEST(Enemy, defaultValues) {
     Position testPos = Position(10,10);
-    Enemy enemy = Enemy("", testPos, testPos, 10,20);
+    Enemy enemy = Enemy("", testPos, testPos, 10, 20);
     
     EXPECT_FALSE(enemy.isDead());
     EXPECT_FALSE(enemy.isExploded());
