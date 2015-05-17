@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <SFML/Audio.hpp>
 
 #ifndef SCORE_SCENE
 #define SCORE_SCENE
@@ -98,6 +99,10 @@ class ScoreScene : public Scene
         backButton->setSize(sf::Vector2f(500 / 2, 100 / 2));
         backButton->setOrigin(sf::Vector2f(backButton->getSize().x / 2, backButton->getSize().y / 2));
         backButton->setPosition(sf::Vector2f(resolution.getX() / 2, scores.back()->getPosition().y + 50));
+
+		
+
+		
         
         
         while (window.isOpen())
@@ -111,6 +116,7 @@ class ScoreScene : public Scene
                 sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
                 if (backButton->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
+					hoverSound();
                     backButton->setTexture(backTextureS);
                     if(event.type == sf::Event::MouseButtonReleased)
                     {

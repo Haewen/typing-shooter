@@ -5,6 +5,7 @@
 #include "../../GUI/Scenes/Scene.cpp"
 #include "../../GUI/Scenes/PauseScene.cpp"
 #include "../../GUI/Scenes/GameOverScene.cpp"
+#include <SFML/Audio.hpp>
 
 #include <iostream>
 
@@ -87,7 +88,19 @@ public:
         waveText->setColor(sf::Color(255,255,255,waveAlpha));
         waveText->setCharacterSize(30);
         waveText->setStyle(sf::Text::Style::Bold);
-        
+
+		//Sounds
+		sf::SoundBuffer buffer;
+		sf::Sound sound;
+
+		//loading background music
+		sf::Music music;
+		if (!music.openFromFile("Resources/Sounds/bg.ogg")) std::cerr << "oops\n";
+		music.setVolume(100);
+		music.setLoop(true);
+
+		if (window.isOpen()) music.play();
+
         //Event loop
         while (window.isOpen())
         {
@@ -107,7 +120,14 @@ public:
                             if (event.text.unicode < 128)
                             {
                                 char c = tolower((char)event.text.unicode);
-                                l.shoot(c);
+								if (l.shoot(c))
+								{
+									//get shot sound
+									buffer.loadFromFile("Resources/Sounds/shot.wav");
+									sound.setBuffer(buffer);
+									sound.setVolume(20);
+									sound.play();
+								}
                             }
                         }
                         
@@ -115,19 +135,29 @@ public:
                         {
                             if (event.key.code == sf::Keyboard::Escape)
                             {
+								music.pause();
                                 window.capture().saveToFile("screenshot_temp.png");
                                 currentState = GameState::Paused;
                                 
                                 int pauseSelection = static_cast<Scene*>(&pauseScene)->run(window);
                                 if(pauseSelection == -1){
+									music.play();
                                     currentState = GameState::Running;
                                     deltaClock.restart();
                                 }else{
                                     return pauseSelection;
                                 }
                                 
-                            }
-                        }
+							}
+							else {
+								//"mistype" sound
+								buffer.loadFromFile("Resources/Sounds/ooa.wav");
+								sound.setBuffer(buffer);
+								sound.setVolume(50);
+								sound.play();
+							}
+						}
+						
                     }
                     
                     window.clear();
@@ -194,6 +224,11 @@ public:
                     
                     if (l.isGameOver())
                     {
+						music.stop();
+						buffer.loadFromFile("Resources/Sounds/go.wav");
+						sound.setBuffer(buffer);
+						sound.setVolume(100);
+						sound.play();
                         window.capture().saveToFile("screenshot_temp.png");
                         currentState = GameState::GameOver;
                     }
@@ -202,6 +237,15 @@ public:
                     // If the last wave ended, increment the current wave and fade in the indicator
                     if(currentState == GameState::NewWave){
                         if(waveAlpha <= 0){
+							//next wave sound
+							if (currentWave > 0)
+							{
+								buffer.loadFromFile("Resources/Sounds/wave.wav");
+								sound.setBuffer(buffer);
+								sound.setVolume(90);
+								sound.play();
+							}
+
                             currentWave++;
                             waveText->setString("Wave " + std::to_string(currentWave));
                             missiles.clear(); l.nextWave(); getEnemies(enemies, l);

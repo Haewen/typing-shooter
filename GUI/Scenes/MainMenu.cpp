@@ -105,6 +105,7 @@ class MainMenu : public Scene
                 sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
                 if (newGame->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
+					hoverSound();
                     newGame->setTexture(newGameTextureS);
                     if(event.type == sf::Event::MouseButtonReleased)
                     {
@@ -115,6 +116,7 @@ class MainMenu : public Scene
                 
                 if (highScore->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
+					hoverSound();
                     highScore->setTexture(highScoreTextureS);
                     if(event.type == sf::Event::MouseButtonReleased)
                     {
@@ -125,6 +127,7 @@ class MainMenu : public Scene
                 
                 if (exit->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
+					hoverSound();
                     exit->setTexture(exitTextureS);
                     if(event.type == sf::Event::MouseButtonReleased)
                     {

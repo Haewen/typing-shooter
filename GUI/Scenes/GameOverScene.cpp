@@ -108,6 +108,7 @@ private:
                 sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
                 if (mainMenuButton->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
+					hoverSound();
                     mainMenuButton->setTexture(mainMenuTextureS);
                     if(event.type == sf::Event::MouseButtonReleased)
                     {

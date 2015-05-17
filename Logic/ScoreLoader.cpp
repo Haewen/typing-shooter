@@ -10,6 +10,7 @@
 #include <time.h>
 #include <limits>
 #include <iostream>
+#include <algorithm>
 
 struct score_coparator
 {

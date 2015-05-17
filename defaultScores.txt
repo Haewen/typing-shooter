@@ -1,0 +1,3 @@
+player 0
+player 70
+player 30
