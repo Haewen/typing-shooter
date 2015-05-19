@@ -1,3 +1,8 @@
+/**
+Game Over Scene
+
+@authors Dániel Eke, Benjamin Ferenc Hajas
+*/
 #include "Scene.cpp"
 #include "../../Logic/Position.h"
 #include "../../Logic/ScoreLoader.h"
@@ -88,38 +93,44 @@ private:
         
         //Score saving logic
         ScoreLoader scoreLoader;
+
+		//button sounds
+		bool mainMenuS = true;
         
         while (window.isOpen())
         {
             sf::Event event;
-            while (window.pollEvent(event))
-            {
-                if (event.type == sf::Event::Closed)
-                    window.close();
-                
-                if (event.type == sf::Event::KeyPressed)
-                {
-                    if (event.key.code == sf::Keyboard::Escape)
-                    {
-                        return -1;
-                    }
-                }
-                
-                sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-                if (mainMenuButton->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
-                {
-					hoverSound();
-                    mainMenuButton->setTexture(mainMenuTextureS);
-                    if(event.type == sf::Event::MouseButtonReleased)
-                    {
-                        if(playerName.empty()){
-                            playerName = "player";
-                        }
-                        scoreLoader.saveScore(playerName, score);
-                        return 0;
-                    }
-                }
-                else mainMenuButton->setTexture(mainMenuTexture);
+			while (window.pollEvent(event))
+			{
+				if (event.type == sf::Event::Closed)
+					window.close();
+
+				if (event.type == sf::Event::KeyPressed)
+				{
+					if (event.key.code == sf::Keyboard::Escape)
+					{
+						return -1;
+					}
+				}
+
+				sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+				if (mainMenuButton->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
+				{
+					hoverSound(mainMenuS);
+					mainMenuS = false;
+					mainMenuButton->setTexture(mainMenuTextureS);
+					if (event.type == sf::Event::MouseButtonReleased)
+					{
+						if (playerName.empty()){
+							playerName = "player";
+						}
+						scoreLoader.saveScore(playerName, score);
+						mainMenuS = true;
+						return 0;
+					}
+				}
+				else{ mainMenuButton->setTexture(mainMenuTexture); mainMenuS = true; }
+			
                 
                 if (event.type == sf::Event::TextEntered)
                 {

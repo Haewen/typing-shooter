@@ -1,3 +1,8 @@
+/**
+Score Scene
+@author Dániel Eke
+*/
+
 #include "Scene.cpp"
 #include "../../Logic/Position.h"
 #include "../../Logic/ScoreLoader.h"
@@ -100,7 +105,8 @@ class ScoreScene : public Scene
         backButton->setOrigin(sf::Vector2f(backButton->getSize().x / 2, backButton->getSize().y / 2));
         backButton->setPosition(sf::Vector2f(resolution.getX() / 2, scores.back()->getPosition().y + 50));
 
-		
+		//button sound
+		bool backButtonS = true;
 
 		
         
@@ -116,14 +122,18 @@ class ScoreScene : public Scene
                 sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
                 if (backButton->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
-					hoverSound();
+					hoverSound(backButtonS);
+					backButtonS = false;
                     backButton->setTexture(backTextureS);
                     if(event.type == sf::Event::MouseButtonReleased)
                     {
+						backButtonS = true;
                         return 0;
                     }
                 }
-                else backButton->setTexture(backTexture);
+				else {
+					backButton->setTexture(backTexture); backButtonS = true;
+				}
             }
             
             window.clear();

@@ -1,3 +1,8 @@
+/**
+Pause Scene
+@author Dániel Eke
+*/
+
 #include "Scene.cpp"
 #include "../../Logic/Position.h"
 #include <vector>
@@ -10,6 +15,7 @@ class PauseScene : public Scene
     int run(sf::RenderWindow &window)
     {
         Position resolution(window.getSize().x, window.getSize().y);
+		bool isFullScreen = false;
         
         //Setting background
         sf::Shader backgroundShader;
@@ -75,6 +81,10 @@ class PauseScene : public Scene
         resumeButton->setSize(sf::Vector2f(500 / 2, 100 / 2));
         resumeButton->setOrigin(sf::Vector2f(resumeButton->getSize().x / 2, resumeButton->getSize().y / 2));
         resumeButton->setPosition(sf::Vector2f(resolution.getX() / 2, resolution.getY() / 2 + buttonSpacing));
+
+		//button sound
+		bool resumeButtonS = true;
+		bool mainMenuButtonS = true;
         
         
         while (window.isOpen())
@@ -91,30 +101,48 @@ class PauseScene : public Scene
                     {
                         return -1;
                     }
+
+					if (event.key.code == sf::Keyboard::F && !isFullScreen)
+					{
+						window.create(sf::VideoMode(800, 600), "Typing Shooter", sf::Style::Fullscreen);
+						isFullScreen = true;
+					}
+
+					else if (event.key.code == sf::Keyboard::F && isFullScreen)
+					{
+						window.create(sf::VideoMode(800, 600), "Typing Shooter", sf::Style::Close);
+						isFullScreen = false;
+					}
+
                 }
+
                 
                 sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
                 if (resumeButton->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
-					hoverSound();
+					hoverSound(resumeButtonS);
+					resumeButtonS = false;
                     resumeButton->setTexture(resumeTextureS);
                     if(event.type == sf::Event::MouseButtonReleased)
                     {
+						resumeButtonS = true;
                         return -1;
                     }
                 }
-                else resumeButton->setTexture(resumeTexture);
+				else { resumeButton->setTexture(resumeTexture); resumeButtonS = true; }
                 
                 if (mainMenuButton->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
-					hoverSound();
+					hoverSound(mainMenuButtonS);
+					mainMenuButtonS = false;
                     mainMenuButton->setTexture(mainMenuTextureS);
                     if(event.type == sf::Event::MouseButtonReleased)
                     {
+						mainMenuButtonS = true;
                         return 0;
                     }
                 }
-                else mainMenuButton->setTexture(mainMenuTexture);
+				else { mainMenuButton->setTexture(mainMenuTexture); mainMenuButtonS = true; }
             }
             
             window.clear();

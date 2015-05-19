@@ -1,3 +1,9 @@
+/**
+Game Scene
+
+@authors Dániel Eke, Benjamin Ferenc Hajas
+*/
+
 #include <SFML/Graphics.hpp>
 #include "../../Logic/GameLogic.h"
 #include "../../GUI/EnemyGUI.h"
@@ -40,7 +46,7 @@ public:
         redOverlay->setFillColor(sf::Color(0,0,0,0));
         redOverlay->setPosition(0, 0);
         
-        
+      
         //window.setFramerateLimit(60);
         //window.setVerticalSyncEnabled(true);
         window.setKeyRepeatEnabled(false);
@@ -122,10 +128,10 @@ public:
                                 char c = tolower((char)event.text.unicode);
 								if (l.shoot(c))
 								{
-									//get shot sound
+									//Shooting sound
 									buffer.loadFromFile("Resources/Sounds/shot.wav");
 									sound.setBuffer(buffer);
-									sound.setVolume(20);
+									sound.setVolume(5);
 									sound.play();
 								}
                             }
@@ -150,10 +156,10 @@ public:
                                 
 							}
 							else {
-								//"mistype" sound
+								//"Mistype" sound
 								buffer.loadFromFile("Resources/Sounds/ooa.wav");
 								sound.setBuffer(buffer);
-								sound.setVolume(50);
+								sound.setVolume(5);
 								sound.play();
 							}
 						}
