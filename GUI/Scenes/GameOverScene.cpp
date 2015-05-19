@@ -1,21 +1,30 @@
-/**
-Game Over Scene
+#ifndef GAME_OVER_SCENE
+#define GAME_OVER_SCENE
 
-@authors Dániel Eke, Benjamin Ferenc Hajas
-*/
 #include "Scene.cpp"
 #include "../../Logic/Position.h"
 #include "../../Logic/ScoreLoader.h"
 #include <vector>
 #include <iostream>
 
-#ifndef GAME_OVER_SCENE
-#define GAME_OVER_SCENE
+
+/**
+@brief Game Over Scene
+
+@authors Daniel Eke, Benjamin Ferenc Hajas
+*/
 class GameOverScene : public Scene
 {
 public:
+	/**
+	@brief Score of the player.
+	*/
     int score = 0;
 private:
+	/**
+	@brief Runs the scene.
+	@param window	The window to run the scene in.
+	*/
     int run(sf::RenderWindow &window)
     {
         Position resolution(window.getSize().x, window.getSize().y);

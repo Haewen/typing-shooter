@@ -1,6 +1,6 @@
 /**
-Missile shot by player on succesful input
-@author Dániel Eke , Benjamin Ferenc Hajas
+@brief Missile shot by player on succesful input
+@authors Dániel Eke , Benjamin Ferenc Hajas
 */
 
 #include "Missile.h"

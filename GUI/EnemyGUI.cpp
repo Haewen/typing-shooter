@@ -1,8 +1,3 @@
-/**
-	Creates a body for an enemy
-	@author Benjamin Ferenc Hajas
-*/
-
 #include "EnemyGUI.h"
 
 EnemyGUI::EnemyGUI(Enemy &enemy)

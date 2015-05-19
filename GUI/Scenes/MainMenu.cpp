@@ -1,16 +1,20 @@
-/**
-Main Menu
-@author Dániel Eke
-*/
+#ifndef MAIN_MENU
+#define MAIN_MENU
 
 #include "Scene.cpp"
 #include "../../Logic/Position.h"
 #include <iostream>
 
-#ifndef MAIN_MENU
-#define MAIN_MENU
+/**
+@brief Main Menu
+@author Daniel Eke
+*/
+
 class MainMenu : public Scene
-{
+{	/**
+	@brief Runs the scene.
+	@param window	The window to run the scene in.
+	*/
     int run(sf::RenderWindow &window)
     {
         Position resolution(window.getSize().x, window.getSize().y);

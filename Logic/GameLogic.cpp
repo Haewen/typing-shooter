@@ -1,9 +1,3 @@
-/**
-	Manages the whole game
-	You can create a new gamemode by creating a subclass to this one.
-	@author Benjamin Ferenc Hajas
-*/
-
 #include "GameLogic.h"
 #include <stdio.h>
 #include <stdlib.h>

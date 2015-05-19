@@ -1,7 +1,5 @@
-/**
-Score Scene
-@author Dániel Eke
-*/
+#ifndef SCORE_SCENE
+#define SCORE_SCENE
 
 #include "Scene.cpp"
 #include "../../Logic/Position.h"
@@ -12,10 +10,17 @@ Score Scene
 #include <iomanip>
 #include <SFML/Audio.hpp>
 
-#ifndef SCORE_SCENE
-#define SCORE_SCENE
+/**
+@brief Highscore scene
+@author Daniel Eke
+*/
+
 class ScoreScene : public Scene
 {
+	/**
+		@brief Runs the scene.
+		@param window	The window to run the scene in.
+	*/
     int run(sf::RenderWindow &window)
     {
         Position resolution(window.getSize().x, window.getSize().y);

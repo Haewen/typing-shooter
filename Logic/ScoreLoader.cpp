@@ -1,9 +1,3 @@
-/**
-	Provides an interface for the logic to load high scores from a file.
-	@author Dániel Eke
-    @credits Benjamin Ferenc Hajas
-*/
-
 #include "ScoreLoader.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,14 +5,6 @@
 #include <limits>
 #include <iostream>
 #include <algorithm>
-
-struct score_coparator
-{
-    inline bool operator() (const Score& struct1, const Score& struct2)
-    {
-        return (struct1.value > struct2.value);
-    }
-};
 
 ScoreLoader::ScoreLoader()
 {

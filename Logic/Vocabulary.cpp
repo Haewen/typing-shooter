@@ -1,9 +1,3 @@
-/**
-    Provides an interface for the logic to get words from a file.
-    @author Benjamin Ferenc Hajas
-    @credits Dániel Eke
-*/
-
 #include "Vocabulary.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,13 +14,6 @@ Vocabulary::Vocabulary(std::string filename)
 	mediumCount = (int)std::count(std::istreambuf_iterator<char>(medium), std::istreambuf_iterator<char>(), '\n');
 	hard.open((filename + "_hard").c_str());
 	hardCount = (int)std::count(std::istreambuf_iterator<char>(hard), std::istreambuf_iterator<char>(), '\n');
-}
-
-Vocabulary::~Vocabulary()
-{
-	easy.close();
-	medium.close();
-	hard.close();
 }
 
 std::string Vocabulary::gotoLine(std::ifstream& file, int num){

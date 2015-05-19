@@ -1,8 +1,3 @@
-/**
-	Enemy's representation in Logic.
-	@author Benjamin Ferenc Hajas
-*/
-
 #include "Enemy.h"
 
 Enemy::Enemy(std::string text,Position &position,Position &playerPosition,float movementSpeed,float acceleration)

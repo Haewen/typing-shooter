@@ -1,8 +1,3 @@
-/**
-Creates a body for a missile
-@author Benjamin Ferenc Hajas
-*/
-
 #include "MissileGUI.h"
 
 MissileGUI::MissileGUI(Missile &missile)

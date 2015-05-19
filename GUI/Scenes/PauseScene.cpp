@@ -1,17 +1,20 @@
-/**
-Pause Scene
-@author Dániel Eke
-*/
+#ifndef PAUSE_SCENE
+#define PAUSE_SCENE
 
 #include "Scene.cpp"
 #include "../../Logic/Position.h"
 #include <vector>
 #include <iostream>
 
-#ifndef PAUSE_SCENE
-#define PAUSE_SCENE
+/**
+@brief Pause Scene
+@author Daniel Eke
+*/
 class PauseScene : public Scene
-{
+{	/**
+	@brief Runs the scene.
+	@param window	The window to run the scene in.
+	*/
     int run(sf::RenderWindow &window)
     {
         Position resolution(window.getSize().x, window.getSize().y);
