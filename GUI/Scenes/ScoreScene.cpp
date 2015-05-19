@@ -1,3 +1,8 @@
+/**
+Score Scene
+@author Dániel Eke
+*/
+
 #include "Scene.cpp"
 #include "../../Logic/Position.h"
 #include "../../Logic/ScoreLoader.h"

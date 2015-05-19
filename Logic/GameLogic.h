@@ -65,7 +65,7 @@ protected:
 	const int KILL_SCORE = 10; 
 	const int BASE_ENEMY_COUNT = 5; 
 	const int BONUS_ENEMY_PER_WAVE = 2; 
-	const int SPAWN_RANGE = 25; 
+	const int SPAWN_RANGE = 15; 
 	const int PLAYER_VERTICAL_POSITION = 95;
 	const int PLAYER_HORIZONTAL_POSITION = 50;
 

@@ -1,3 +1,8 @@
+/**
+Scene Skeleton
+@author Benjamin Ferenc Hajas, Balázs Katona
+*/
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 

@@ -1,3 +1,8 @@
+/**
+Pause Scene
+@author Dániel Eke
+*/
+
 #include "Scene.cpp"
 #include "../../Logic/Position.h"
 #include <vector>
@@ -10,6 +15,7 @@ class PauseScene : public Scene
     int run(sf::RenderWindow &window)
     {
         Position resolution(window.getSize().x, window.getSize().y);
+		bool isFullScreen = false;
         
         //Setting background
         sf::Shader backgroundShader;
@@ -91,7 +97,21 @@ class PauseScene : public Scene
                     {
                         return -1;
                     }
+
+					if (event.key.code == sf::Keyboard::F && !isFullScreen)
+					{
+						window.create(sf::VideoMode(800, 600), "Typing Shooter", sf::Style::Fullscreen);
+						isFullScreen = true;
+					}
+
+					else if (event.key.code == sf::Keyboard::F && isFullScreen)
+					{
+						window.create(sf::VideoMode(800, 600), "Typing Shooter", sf::Style::Close);
+						isFullScreen = false;
+					}
+
                 }
+
                 
                 sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
                 if (resumeButton->getGlobalBounds().contains(mousePosition.x, mousePosition.y))

@@ -17,7 +17,7 @@
 
 int main()
 {	
-	//Applications variables
+	//Application variables
 	std::vector<Scene*> scenes;
 	int currentScene = 0;
 	MainMenu mainMenu;

@@ -1,3 +1,8 @@
+/**
+Main Menu
+@author Dániel Eke
+*/
+
 #include "Scene.cpp"
 #include "../../Logic/Position.h"
 #include <iostream>

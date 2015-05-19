@@ -1,3 +1,8 @@
+/**
+Game Over Scene
+
+@authors Dániel Eke, Benjamin Ferenc Hajas
+*/
 #include "Scene.cpp"
 #include "../../Logic/Position.h"
 #include "../../Logic/ScoreLoader.h"

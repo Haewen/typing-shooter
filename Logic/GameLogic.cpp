@@ -26,9 +26,9 @@ void GameLogic::newGame()
 	score = 0;
 	waveCount = 0;
 	nextWave();
-	easyChance = 97;
-	mediumChance = 2;
-	hardChance = 1;
+	easyChance = 70;
+	mediumChance = 22;
+	hardChance = 8;
     remainingEnemyCount = 0;
 	currentSpawnRange = SPAWN_RANGE;
 }
@@ -123,7 +123,7 @@ bool GameLogic::shootAt(char c){
 			target->shoot();
 			if (target->isDead())
 			{
-				score += KILL_SCORE;
+				score += KILL_SCORE+(target->getText().size()/2) + waveCount;
 				target = 0;
 				remainingEnemyCount--;
 			}
@@ -163,7 +163,7 @@ void GameLogic::createEnemies()
 	mediumChance += 100 / (easy_t - easyChance) * 0.7f;
 	hardChance = 100 - mediumChance - easyChance;
 
-	currentSpawnRange *= 0.90f;
+	currentSpawnRange *= 0.95f;
 
 }
 
