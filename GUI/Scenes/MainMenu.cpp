@@ -94,6 +94,11 @@ class MainMenu : public Scene
         exit->setOrigin(sf::Vector2f(exit->getSize().x / 2, exit->getSize().y / 2));
         exit->setPosition(sf::Vector2f(resolution.getX() / 2, resolution.getY() / 2 + buttonSpacing * 2));
         
+		//button sounds
+		bool newGameS = true;
+		bool exitS  = true;
+		bool highScoreS = true;
+
         while (window.isOpen())
         {
             sf::Event event;
@@ -105,36 +110,42 @@ class MainMenu : public Scene
                 sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
                 if (newGame->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
-					hoverSound();
+					hoverSound(newGameS);
+					newGameS = false;
                     newGame->setTexture(newGameTextureS);
                     if(event.type == sf::Event::MouseButtonReleased)
                     {
+						newGameS = true;
                         return 1;
                     }
                 }
-                else newGame->setTexture(newGameTexture);
+				else { newGame->setTexture(newGameTexture); newGameS = true; }
                 
                 if (highScore->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
-					hoverSound();
+					hoverSound(highScoreS);
+					highScoreS = false;
                     highScore->setTexture(highScoreTextureS);
                     if(event.type == sf::Event::MouseButtonReleased)
                     {
+						highScoreS = true;
                         return 2;
                     }
                 }
-                else highScore->setTexture(highScoreTexture);
+				else { highScore->setTexture(highScoreTexture); highScoreS = true; }
                 
                 if (exit->getGlobalBounds().contains(mousePosition.x, mousePosition.y))
                 {
-					hoverSound();
+					hoverSound(exitS);
+					exitS = false;
                     exit->setTexture(exitTextureS);
                     if(event.type == sf::Event::MouseButtonReleased)
                     {
+						exitS = true;
                         return -1;
                     }
                 }
-                else exit->setTexture(exitTexture);
+				else { exit->setTexture(exitTexture);  exitS = true; }
             }
             
             window.clear();
