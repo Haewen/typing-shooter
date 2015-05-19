@@ -13,7 +13,7 @@
 
 GameLogic::GameLogic()
 {
-	srand(time(NULL));
+	srand((int)time(NULL));
 	playerPosition = Position(PLAYER_HORIZONTAL_POSITION, PLAYER_VERTICAL_POSITION);
 	target = 0;
 	vocabulary = new Vocabulary("Words/en");

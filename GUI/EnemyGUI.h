@@ -21,6 +21,7 @@ protected:
 	sf::RectangleShape body;
 	sf::Text* text;
 	Enemy* enemy;
+    float rotateSpeed;
 };
 
 #endif //ENEMYGUI_H

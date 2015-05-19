@@ -192,7 +192,7 @@ public:
                         }
                     }
                     
-                    for (int i = missiles.size(); i < l.getMissiles().size(); i++)
+                    for (int i = (int)missiles.size(); i < l.getMissiles().size(); i++)
                     {
                         missiles.push_back(MissileGUI(l.getMissiles()[i]));
                     }

@@ -13,13 +13,13 @@
 
 Vocabulary::Vocabulary(std::string filename)
 {
-	srand(time(NULL));
+	srand((int)time(NULL));
 	easy.open((filename + "_easy").c_str());
-	easyCount = std::count(std::istreambuf_iterator<char>(easy), std::istreambuf_iterator<char>(), '\n');
+	easyCount = (int)std::count(std::istreambuf_iterator<char>(easy), std::istreambuf_iterator<char>(), '\n');
 	medium.open((filename + "_medium").c_str());
-	mediumCount = std::count(std::istreambuf_iterator<char>(medium), std::istreambuf_iterator<char>(), '\n');
+	mediumCount = (int)std::count(std::istreambuf_iterator<char>(medium), std::istreambuf_iterator<char>(), '\n');
 	hard.open((filename + "_hard").c_str());
-	hardCount = std::count(std::istreambuf_iterator<char>(hard), std::istreambuf_iterator<char>(), '\n');
+	hardCount = (int)std::count(std::istreambuf_iterator<char>(hard), std::istreambuf_iterator<char>(), '\n');
 }
 
 Vocabulary::~Vocabulary()

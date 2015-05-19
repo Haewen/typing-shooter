@@ -24,6 +24,7 @@ EnemyGUI::EnemyGUI(Enemy &enemy)
 	text->setCharacterSize(15);
 	text->setStyle(sf::Text::Style::Bold);
 
+    rotateSpeed = (std::rand() % 50) + 30;
 }
 
 void EnemyGUI::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -36,6 +37,7 @@ void EnemyGUI::setPosition(sf::Vector2f position)
 {
 	body.setPosition(position);
 	text->setPosition(sf::Vector2f(body.getPosition().x + body.getSize().x + 1, body.getPosition().y - body.getSize().y/2- text->getLocalBounds().top));
+    body.setRotation(body.getRotation()+rotateSpeed*0.1);
 }
 
 void EnemyGUI::setAsTarget()
