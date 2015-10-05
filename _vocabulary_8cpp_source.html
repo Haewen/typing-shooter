@@ -99,13 +99,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
 <div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="class_vocabulary.html#a92eb2f3c4179217e44a5747e8cc57051">    8</a></span>&#160;<a class="code" href="class_vocabulary.html#a92eb2f3c4179217e44a5747e8cc57051">Vocabulary::Vocabulary</a>(std::string filename)</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    srand(time(NULL));</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    srand((<span class="keywordtype">int</span>)time(NULL));</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    easy.open((filename + <span class="stringliteral">&quot;_easy&quot;</span>).c_str());</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    easyCount = std::count(std::istreambuf_iterator&lt;char&gt;(easy), std::istreambuf_iterator&lt;char&gt;(), <span class="charliteral">&#39;\n&#39;</span>);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    easyCount = (int)std::count(std::istreambuf_iterator&lt;char&gt;(easy), std::istreambuf_iterator&lt;char&gt;(), <span class="charliteral">&#39;\n&#39;</span>);</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    medium.open((filename + <span class="stringliteral">&quot;_medium&quot;</span>).c_str());</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    mediumCount = std::count(std::istreambuf_iterator&lt;char&gt;(medium), std::istreambuf_iterator&lt;char&gt;(), <span class="charliteral">&#39;\n&#39;</span>);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    mediumCount = (int)std::count(std::istreambuf_iterator&lt;char&gt;(medium), std::istreambuf_iterator&lt;char&gt;(), <span class="charliteral">&#39;\n&#39;</span>);</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    hard.open((filename + <span class="stringliteral">&quot;_hard&quot;</span>).c_str());</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    hardCount = std::count(std::istreambuf_iterator&lt;char&gt;(hard), std::istreambuf_iterator&lt;char&gt;(), <span class="charliteral">&#39;\n&#39;</span>);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    hardCount = (int)std::count(std::istreambuf_iterator&lt;char&gt;(hard), std::istreambuf_iterator&lt;char&gt;(), <span class="charliteral">&#39;\n&#39;</span>);</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;std::string Vocabulary::gotoLine(std::ifstream&amp; file, <span class="keywordtype">int</span> num){</div>
@@ -143,7 +143,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 19 2015 15:19:28 for Typing Shooter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 19 2015 19:41:17 for Typing Shooter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

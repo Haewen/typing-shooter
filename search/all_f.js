@@ -7,6 +7,7 @@ var searchData=
   ['score_5fcoparator',['score_coparator',['../structscore__coparator.html',1,'']]],
   ['score_5fscene',['SCORE_SCENE',['../_score_scene_8cpp.html#a1fea08eef8c65a544ea60c8bb951d93f',1,'ScoreScene.cpp']]],
   ['scoreloader',['ScoreLoader',['../class_score_loader.html',1,'ScoreLoader'],['../class_score_loader.html#a421ffd82232bd3aa7321a8059f2c0806',1,'ScoreLoader::ScoreLoader()'],['../class_score_loader.html#a39215203d2448efb144ed69b47c4ec17',1,'ScoreLoader::ScoreLoader(std::string filename)']]],
+  ['scoreloader_20_28endanke_20air_27s_20conflicted_20copy_202015_2d05_2d18_29_2ecpp',['ScoreLoader (Endanke Air&apos;s conflicted copy 2015-05-18).cpp',['../_score_loader_01_07_endanke_01_air's_01conflicted_01copy_012015-05-18_08_8cpp.html',1,'']]],
   ['scoreloader_2ecpp',['ScoreLoader.cpp',['../_score_loader_8cpp.html',1,'']]],
   ['scoreloader_2eh',['ScoreLoader.h',['../_score_loader_8h.html',1,'']]],
   ['scoreloader_5funittest_2ecpp',['ScoreLoader_unittest.cpp',['../_score_loader__unittest_8cpp.html',1,'']]],
